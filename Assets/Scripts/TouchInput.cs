@@ -32,6 +32,7 @@ public class TouchInput : MonoBehaviour {
             {
                 testImage.material.color = Color.blue;
                 ActiveTouch = false;
+                RuneTouch.WriteOut();
             }
         }
     }
