@@ -5,11 +5,13 @@ public class Rune : MonoBehaviour {
 
     public RuneType runeType;
 
-    void OnMouseOver()
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (TouchInput.ActiveTouch)
         {
-            RuneTouch.AddTouch(runeType);
+            RuneTouch.Instance.AddTouch(runeType);
         }
+
+        
     }
 }

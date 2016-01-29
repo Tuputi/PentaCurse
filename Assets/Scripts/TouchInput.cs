@@ -28,12 +28,12 @@ public class TouchInput : MonoBehaviour {
                 ActiveTouch = true;
             }
 
-            if(touch.phase == TouchPhase.Ended)
-            {
-                testImage.material.color = Color.blue;
-                ActiveTouch = false;
-                RuneTouch.WriteOut();
-            }
+           
+        }
+
+        else {
+            testImage.material.color = Color.blue;
+            ActiveTouch = false;
         }
     }
 }
