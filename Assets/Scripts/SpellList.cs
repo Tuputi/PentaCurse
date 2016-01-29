@@ -6,9 +6,10 @@ public class SpellList : Manager<SpellList>
 {
 
     public List<Spell> spells;
+    public Spell fallBack;
   
 
-    public void CheckWhichSpell(List<RuneType> runes)
+    public Spell CheckWhichSpell(List<RuneType> runes)
     {
         Spell rightSpell = null;
         foreach(Spell sp in spells)
@@ -32,10 +33,12 @@ public class SpellList : Manager<SpellList>
         if(rightSpell != null)
         {
             Debug.Log("Spell casted: " + rightSpell.SpellName);
+            return rightSpell;
         }
         else
         {
             Debug.Log("Fail");
+            return fallBack;
         }
     }
 

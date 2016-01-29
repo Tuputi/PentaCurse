@@ -16,15 +16,18 @@ public class GameManager : MonoBehaviour {
         {
             if (!TouchInput.ActiveTouch)
             {
-                //RuneTouch.Instance.WriteOut();
-                SpellList.Instance.CheckWhichSpell(RuneTouch.Instance.GetRunes());
+                Spell spell = SpellList.Instance.CheckWhichSpell(RuneTouch.Instance.GetRunes());
                 RuneTouch.Instance.ClearRunes();
                 SpellInitiated = false;
+                CompleteSpell(spell);
             }
         }
     }
 
-
+    public void CompleteSpell(Spell spell)
+    {
+        //do stuff
+    }
     
 
 }
