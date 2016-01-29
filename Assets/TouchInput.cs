@@ -9,6 +9,8 @@ public class TouchInput : MonoBehaviour {
 
     public Image testImage;
 
+    public static bool ActiveTouch = false;
+
 
     void Update()
     {
@@ -23,11 +25,13 @@ public class TouchInput : MonoBehaviour {
             if (touch.phase == TouchPhase.Began)
             {
                 testImage.material.color = Color.red;
+                ActiveTouch = true;
             }
 
             if(touch.phase == TouchPhase.Ended)
             {
                 testImage.material.color = Color.blue;
+                ActiveTouch = false;
             }
         }
     }
