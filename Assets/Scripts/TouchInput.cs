@@ -11,9 +11,16 @@ public class TouchInput : MonoBehaviour {
 
     public static bool ActiveTouch = false;
 
+    public bool TouchEnabled = true;
 
     void Update()
     {
+        if (!TouchEnabled)
+        {
+            MouseControl();
+            return;
+        }
+
         int NumberOfTouches = Input.touchCount;
         if(NumberOfTouches > 0)
         {
@@ -33,6 +40,22 @@ public class TouchInput : MonoBehaviour {
 
         else {
             testImage.material.color = Color.blue;
+            ActiveTouch = false;
+        }
+    }
+
+
+    public void MouseControl()
+    {
+        testImage.transform.position = Input.mousePosition;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            ActiveTouch = true;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
             ActiveTouch = false;
         }
     }
