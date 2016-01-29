@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour {
         {
             if (!TouchInput.ActiveTouch)
             {
-                RuneTouch.Instance.WriteOut();
+                //RuneTouch.Instance.WriteOut();
+                SpellList.Instance.CheckWhichSpell(RuneTouch.Instance.GetRunes());
+                RuneTouch.Instance.ClearRunes();
                 SpellInitiated = false;
             }
         }

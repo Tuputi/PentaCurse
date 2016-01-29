@@ -15,9 +15,14 @@ public class RuneTouch : Manager<RuneTouch> {
         touchedRunes.Add(rune);
     }
 
-    public void EmptyTouches()
+    public void ClearRunes()
     {
         touchedRunes.Clear();
+    }
+
+    public List<RuneType> GetRunes()
+    {
+        return touchedRunes;
     }
 
     public void WriteOut()
@@ -30,6 +35,6 @@ public class RuneTouch : Manager<RuneTouch> {
         UIManager.WriteToConsole(tempString);
 
         //clear
-        EmptyTouches();
+        ClearRunes();
     }
 }

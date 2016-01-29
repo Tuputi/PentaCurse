@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 
 
-public class SpellList : MonoBehaviour {
+public class SpellList : Manager<SpellList>
+{
 
     public List<Spell> spells;
   
 
-    public void CheckWhichSpell(List<Rune> runes)
+    public void CheckWhichSpell(List<RuneType> runes)
     {
         Spell rightSpell = null;
         foreach(Spell sp in spells)

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Spell : ScriptableObject{
 
-    public List<Rune> Runes;
+    public List<RuneType> Runes;
     public string SpellName;
 
 
