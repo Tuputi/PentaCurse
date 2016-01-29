@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour {
 
     bool SpellInitiated = false;
 
-	void Update()
+    void Update()
     {
         if (TouchInput.ActiveTouch)
         {
