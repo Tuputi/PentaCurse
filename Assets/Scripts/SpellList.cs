@@ -37,7 +37,6 @@ public class SpellList : Manager<SpellList>
         }
         else
         {
-            Debug.Log("Fail");
             return fallBack;
         }
     }

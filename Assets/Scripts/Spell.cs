@@ -8,6 +8,7 @@ public class Spell : ScriptableObject{
 
     public List<RuneType> Runes;
     public string SpellName;
+    public Sprite RuneSymbol;
 
 
 }
