@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
     bool SpellInitiated = false;
+    public Image RuneSymbolBase;
+    public Canvas canvas;
+
+    public bool WaitingForSwipe = false;
 
     void Update()
     {
@@ -22,11 +27,22 @@ public class GameManager : MonoBehaviour {
                 CompleteSpell(spell);
             }
         }
+
+        if (WaitingForSwipe)
+        {
+           // if(TouchInput. == TouchInput.SwipeDirection.sUp)
+           // {
+                //do thing;
+                WaitingForSwipe = false;
+           // }
+        }
     }
 
     public void CompleteSpell(Spell spell)
     {
-        //do stuff
+        Image runeSymbol = Instantiate(RuneSymbolBase);
+        runeSymbol.transform.SetParent(canvas.transform, false);
+        runeSymbol.transform.localPosition = new Vector2(0, -120);
     }
     
 
