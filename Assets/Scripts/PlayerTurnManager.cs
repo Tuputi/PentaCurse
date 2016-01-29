@@ -62,7 +62,7 @@ public class PlayerTurnManager : NetworkBehaviour
         CurrentTimer = timer;
     }
 
-    public void SetIsActivePlayer(bool isActive)
+    public void SetIsActive(bool isActive)
     {
 
     }
