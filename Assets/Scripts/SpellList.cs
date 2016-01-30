@@ -69,6 +69,7 @@ public class SpellList : Manager<SpellList>
     public void LightUpRune(RuneType runeType)
     {
         RuneImages[runeType].GetComponent<Animator>().SetBool("LightUp", true);
+        //RuneImages[runeType].GetComponent<Image>().color = new Color(255, 255, 255);
     }
 
     public void LightUpLine(RuneType a, RuneType b)
