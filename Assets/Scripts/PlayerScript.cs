@@ -130,12 +130,14 @@ public class PlayerScript : NetworkBehaviour
     [Command]
     public void CmdSetCurrentHealth(float health)
     {
+        Debug.Log("CmdSetCurrentHealth: " + health);
         ClientSetHealth(health);
     }
 
     [Client]
     public void ClientSetHealth(float health)
     {
+        Debug.Log("ClientSetHealth: " + health);
         CurrentHealth = health;
     }
 }
