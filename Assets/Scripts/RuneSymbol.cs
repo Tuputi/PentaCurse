@@ -10,7 +10,6 @@ public class RuneSymbol : MonoBehaviour {
 
     public void ReadyToSend()
     {
-        GameManager.state = GameState.send;
         Debug.Log("Ready to send");
     }
 }
