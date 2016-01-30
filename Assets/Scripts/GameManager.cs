@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour {
         if (currentSpell == SpellList.Instance.fallBack){
             if (PlayerScript.LocalInstance != null)
             {
-                PlayerScript.LocalInstance.ChangeCurrentHealth(-10);
+                PlayerScript.LocalInstance.CurrentHealth -= 10;
             }
         } 
 

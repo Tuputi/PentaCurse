@@ -12,9 +12,9 @@ public class PlayerScript : NetworkBehaviour
     {
         get
         {
-            if(s_localInstance == null) {
+            if (s_localInstance == null) {
                 var players = GameObject.FindObjectsOfType<PlayerScript>();
-                foreach(var player in players) {
+                foreach (var player in players) {
                     if (player.isLocalPlayer) {
                         s_localInstance = player;
                     }
@@ -56,7 +56,7 @@ public class PlayerScript : NetworkBehaviour
 
     void Update()
     {
-        if(TouchInput == null) {
+        if (TouchInput == null) {
             TouchInput = AquireInput();
         } else {
             TouchInput.UpdateInput(isLocalPlayer);
@@ -92,7 +92,7 @@ public class PlayerScript : NetworkBehaviour
     public void SetCurrentSpell(Spell spell)
     {
         var index = -1;
-        for(int i = 0; i < SpellList.Instance.spells.Count; i++) {
+        for (int i = 0; i < SpellList.Instance.spells.Count; i++) {
             if (SpellList.Instance.spells[i] == spell) {
                 index = i;
             }
@@ -122,23 +122,8 @@ public class PlayerScript : NetworkBehaviour
         Debug.Log(CurrentSpell.SpellName);
     }
 
-    public void ChangeCurrentHealth(float health)
+    public void SetCurrentSpellIndex(float health)
     {
-        if (hasAuthority) {
-            CurrentHealth += health;
-            CmdSetCurrentHealth(CurrentHealth);
-        }
-    }
-
-    [Command]
-    public void CmdSetCurrentHealth(float health)
-    {
-        ClientSetHealt(health);
-    }
-
-    [Client]
-    public void ClientSetHealt(float health)
-    {
-        CurrentHealth = health;
+            CurrentHealth = health;
     }
 }
