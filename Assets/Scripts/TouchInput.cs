@@ -19,10 +19,10 @@ public class TouchInput : MonoBehaviour {
 
     public bool TouchEnabled = true;
 
-    public enum GameState { draw, swipe};
+   
     public enum SwipeDirection { sLeft, sRight, sUp, sDown };
-    GameState state;
-    public SwipeDirection swipeDir;
+    
+    public static SwipeDirection swipeDir;
 
     void Update()
     {
@@ -32,7 +32,7 @@ public class TouchInput : MonoBehaviour {
             return;
         }
 
-        if (state == GameState.draw)
+        if (GameManager.state == GameState.draw)
         {
             DrawState();
         }
@@ -97,11 +97,13 @@ public class TouchInput : MonoBehaviour {
                     {
                         //right
                         swipeDir = SwipeDirection.sRight;
+                        Debug.Log("Swipe to right");
                     }
                     else if ((180f - angleOfSwipe) < minAngle)
                     {
                         //left
                         swipeDir = SwipeDirection.sLeft;
+                        Debug.Log("Swipe to left");
                     }
                     else
                     {
@@ -111,11 +113,13 @@ public class TouchInput : MonoBehaviour {
                         {
                             //top
                             swipeDir = SwipeDirection.sUp;
+                            Debug.Log("Swipe to up");
                         }
                         else if ((180f - angleOfSwipe) < minAngle)
                         {
                             //down
-                            swipeDir = SwipeDirection.sDown;;
+                            swipeDir = SwipeDirection.sDown;
+                            Debug.Log("Swipe to down");
                         }
                         else
                         {
@@ -129,16 +133,26 @@ public class TouchInput : MonoBehaviour {
 
     public void MouseControl()
     {
-        cursorImage.transform.position = Input.mousePosition;
-
-        if (Input.GetMouseButtonDown(0))
+        if (GameManager.state == GameState.draw)
         {
-            ActiveTouch = true;
+            cursorImage.transform.position = Input.mousePosition;
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                ActiveTouch = true;
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                ActiveTouch = false;
+            }
         }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            ActiveTouch = false;
+        if(GameManager.state == GameState.send) {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                swipeDir = SwipeDirection.sUp;
+            }
         }
     }
 }
