@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     public Canvas canvas;
     public RuneSymbol currentSymbol;
     public Spell currentSpell;
+    public GameObject FallbackEffect;
     
     public static GameState state = GameState.draw;
 
@@ -67,8 +68,8 @@ public class GameManager : MonoBehaviour {
         Image runeSymbol = Instantiate(RuneSymbolBase);
         if (currentSpell.SpellName.Equals("Fallback"))
         {
-            runeSymbol.color = Color.red;
-            Healbar.Instance.ChangeHealth(-10, true);
+            GameObject go = Instantiate(FallbackEffect);
+            go.transform.SetParent(canvas.transform, false);
         }
         runeSymbol.sprite = spell.RuneSymbol;
         runeSymbol.transform.SetParent(canvas.transform, false);
