@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : Manager<GameManager>
+{
 
     bool SpellInitiated = false;
     public Image RuneSymbolBase;
@@ -91,6 +92,7 @@ public class GameManager : MonoBehaviour {
                 
             }
             cloud.gameObject.SetActive(true);
+            OnComplete(currentSpell);
         } 
 
         runeSymbol.sprite = spell.RuneSymbol;
