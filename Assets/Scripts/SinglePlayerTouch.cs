@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SinglePlayerTouch : MonoBehaviour {
 
+    public GameObject Prefab;
+
     public TouchInput TouchInput;
 	// Use this for initialization
 	void Start () {
