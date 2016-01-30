@@ -7,7 +7,6 @@ public class FallbackCleaner : MonoBehaviour {
     {
         SpellList.Instance.DarkenRunes();
         LineLighterHelper.Instance.DarkenLines();
-        GameManager.Instance.currentSymbol = null;
         GameManager.Instance.currentSpell = null;
         GameManager.state = GameState.draw;
         TouchInput.ActiveTouch = false;

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class HotseatManager : Manager<HotseatManager>
 {
+    public GameObject SpellCardPRefab;
+
     public float CountdownTimer = 5;
     public float SuccessfullSpellDamageIncrease = 5;
     public float TurnTimerValue = 3;
@@ -13,6 +15,8 @@ public class HotseatManager : Manager<HotseatManager>
     public float CurrentTimerValue;
     public float CurrentDamagePool;
     public float CurrentVictoryValue;
+
+    public SpellCard CurrentTopCard;
 
     public Spell CurrentSpell;
 
@@ -102,7 +106,6 @@ public class HotseatManager : Manager<HotseatManager>
         Debug.Log("StartGame");
         CurrentPlayerIndex = 0;
         CurrentPlayer.PlayerBoard.Enable();
-        OtherPlayer.PlayerBoard.Disable();
         Debug.Log("Current Player index is " + CurrentPlayerIndex);
         CurrentTimerValue = TurnTimerValue;
         CurrentGameState = HotSeatGameState.Playing;
@@ -120,7 +123,7 @@ public class HotseatManager : Manager<HotseatManager>
 
     public void TakeDamage(float amount)
     {
-        if(CurrentPlayerIndex == 0) {
+        if(CurrentPlayerIndex == 1) {
             CurrentVictoryValue -= amount;
         } else {
             CurrentVictoryValue += amount;
@@ -132,22 +135,37 @@ public class HotseatManager : Manager<HotseatManager>
 
     public void CastSpell(Spell spell)
     {
-        Debug.Log("Cast spell " + spell);
+        InstantiateSpellCard(spell);
         if(CurrentSpell == null) {
             CurrentSpell = spell;
+
         } else {
 
             var result = SpellUtilties.GetResult(CurrentSpell, spell);
 
+            Debug.Log("Result = " + result);
             if(result == SpellResult.Equal) {
                 ResetCurrentDamagePool();
             }else if(result == SpellResult.Winning) {
                 CurrentDamagePool += SuccessfullSpellDamageIncrease;
             }else if(result == SpellResult.Losing) {
+                CurrentDamagePool += SuccessfullSpellDamageIncrease;
                 TakeDamage(CurrentDamagePool);
                 ResetCurrentDamagePool();
             }
             CurrentSpell = spell;
         }
+    }
+
+    public SpellCard InstantiateSpellCard(Spell spell)
+    {
+        var spellCard = GameObject.Instantiate(SpellCardPRefab, Vector3.zero, Quaternion.identity) as GameObject;
+        spellCard.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform);
+        spellCard.transform.position = CurrentPlayer.PlayerBoard.transform.position;
+        CurrentTopCard = spellCard.GetComponent<SpellCard>();
+        CurrentTopCard.Init();
+        CurrentTopCard.Image.sprite = spell.RuneSymbol;
+
+        return CurrentTopCard;
     }
 }

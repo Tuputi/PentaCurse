@@ -8,7 +8,6 @@ public class GameManager : Manager<GameManager>
     bool SpellInitiated = false;
     public Image RuneSymbolBase;
     public Canvas canvas;
-    public RuneSymbol currentSymbol;
     public Spell currentSpell;
 
     public Image Clouds;
@@ -69,8 +68,6 @@ public class GameManager : Manager<GameManager>
         HotseatManager.Instance.CastSpell(currentSpell);
         SpellList.Instance.DarkenRunes();
         LineLighterHelper.Instance.DarkenLines();
-        currentSymbol.GetComponent<Animator>().Play("RuneSymbolSend");
-        currentSymbol = null;
         currentSpell = null;
         state = GameState.draw;
         TouchInput.ActiveTouch = false;
@@ -82,7 +79,6 @@ public class GameManager : Manager<GameManager>
     {
         currentSpell = spell;
         state = GameState.send;
-        Image runeSymbol = Instantiate(RuneSymbolBase);
 
         if (currentSpell == SpellList.Instance.fallBack){
             if (PlayerScript.LocalInstance != null)
@@ -94,10 +90,6 @@ public class GameManager : Manager<GameManager>
             OnComplete(currentSpell);
         } 
 
-        runeSymbol.sprite = spell.RuneSymbol;
-        runeSymbol.transform.SetParent(canvas.transform, false);
-        runeSymbol.transform.localPosition = new Vector2(0, -120);
-        currentSymbol = runeSymbol.GetComponent<RuneSymbol>();
         ClearCurrentSpell();
     }
 
