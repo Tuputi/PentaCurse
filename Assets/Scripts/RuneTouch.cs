@@ -20,6 +20,8 @@ public class RuneTouch : Manager<RuneTouch> {
         touchedRunes.Add(rune);
         SpellList.Instance.LightUpRune(rune);
 
+		SoundScript.Instance.PlaySound (SoundScript.Instance.selectsound);
+
         if(touchedRunes.Count > 1)
         {
             LineLighterHelper.Instance.LightLineBetween(touchedRunes[touchedRunes.Count - 2], rune);
@@ -47,5 +49,7 @@ public class RuneTouch : Manager<RuneTouch> {
 
         //clear
         ClearRunes();
+
+		SoundScript.Instance.LetGo ();
     }
 }
