@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class LineLighterHelper : Manager<LineLighterHelper>
 {
 
     public List<Line> lines;
+    Color oldColor;
 
+    void Awake()
+    {
+        oldColor = lines[0].GetComponent<Image>().color;
+    }
 
     public void LightLineBetween(RuneType a, RuneType b)
     {
@@ -14,7 +20,9 @@ public class LineLighterHelper : Manager<LineLighterHelper>
         {
             if(line.runes.Contains(a) && line.runes.Contains(b))
             {
-                line.GetComponent<Animator>().SetBool("LightUp", true);
+                Debug.Log("Foundline");
+               
+                line.GetComponent<Image>().color = new Color(255, 255, 255);
                 return;
             }
         }
@@ -24,7 +32,7 @@ public class LineLighterHelper : Manager<LineLighterHelper>
     {
         foreach(Line line in lines)
         {
-            line.GetComponent<Animator>().SetBool("LightUp", false);
+            line.GetComponent<Image>().color = oldColor;
         }
     }
 }

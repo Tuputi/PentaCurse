@@ -7,7 +7,6 @@ public class FallbackCleaner : MonoBehaviour {
     {
         SpellList.Instance.DarkenRunes();
         LineLighterHelper.Instance.DarkenLines();
-        GameManager.Instance.currentSymbol.GetComponent<Animator>().Play("RuneSymbolSend");
         GameManager.Instance.currentSymbol = null;
         GameManager.Instance.currentSpell = null;
         GameManager.state = GameState.draw;

@@ -88,8 +88,6 @@ public class GameManager : Manager<GameManager>
             {
                 var health = PlayerScript.LocalInstance.CurrentHealth - 10;
                 PlayerScript.LocalInstance.SetCurrentHealth(health);
-
-                
             }
             cloud.gameObject.SetActive(true);
             OnComplete(currentSpell);
