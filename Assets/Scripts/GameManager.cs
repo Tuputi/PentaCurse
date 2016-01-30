@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour {
 
         if (currentSpell.SpellName.Equals("Fallback")){
             runeSymbol.color = Color.red;
-            PlayerScript.LocalInstance.CurrentHealth -= 10;
+            PlayerScript.LocalInstance.ChangeCurrentHealth(-10);
         }
 
         runeSymbol.sprite = spell.RuneSymbol;

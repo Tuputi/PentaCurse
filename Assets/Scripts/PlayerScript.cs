@@ -44,12 +44,9 @@ public class PlayerScript : NetworkBehaviour
 
     private TouchInput TouchInput;
 
-    [SyncVar(hook = "SetCurrentSpellIndex")]
     public int CurrentSpellIndex;
 
     public Spell CurrentSpell;
-
-    [SyncVar(hook = "SetCurrentHealth")]
     public float CurrentHealth = 100;
 
     void Start()
@@ -124,8 +121,21 @@ public class PlayerScript : NetworkBehaviour
         Debug.Log(CurrentSpell.SpellName);
     }
 
-    public void SetCurrentHealth(float health)
+    public void ChangeCurrentHealth(float health)
     {
-        CurrentHealth = health; 
+        CurrentHealth += health;
+        CmdSetCurrentHealth(CurrentHealth);
+    }
+
+    [Command]
+    public void CmdSetCurrentHealth(float health)
+    {
+        ClientSetHealth(health);
+    }
+
+    [Client]
+    public void ClientSetHealth(float health)
+    {
+        CurrentHealth = health;
     }
 }
