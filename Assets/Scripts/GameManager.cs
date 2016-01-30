@@ -107,6 +107,6 @@ public class GameManager : MonoBehaviour {
             PlayerScript.LocalInstance.SetCurrentSpell(spell);
         }
 		SoundScript.Instance.LetGo ();
-		SoundScript.Instance.PlaySound (SoundScript.Instance.spellcast);
+		SoundScript.Instance.PlaySound (spell.SendSound);
     }
 }
