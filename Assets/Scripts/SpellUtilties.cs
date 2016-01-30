@@ -5,6 +5,14 @@ public static class SpellUtilties
 {
     public static SpellResult GetResult(Spell a, Spell b)
     {
+        if(a.Runes.Count == 0 && b.Runes.Count == 0) {
+            return SpellResult.Equal;
+        }else if(a.Runes.Count == 0) {
+            return SpellResult.Winning;
+        } else if(b.Runes.Count == 0) {
+            return SpellResult.Losing;
+        }
+
         if(a.Runes.Count == 2) {
             if(b.Runes.Count == 2) {
                 return SpellResult.Equal;
