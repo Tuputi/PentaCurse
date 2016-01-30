@@ -22,7 +22,7 @@ public class RuneTouch : Manager<RuneTouch> {
 
         if(touchedRunes.Count > 1)
         {
-            LineLighterHelper.Instance.LightLineBetween(touchedRunes[touchedRunes.Count - 1], rune);
+            LineLighterHelper.Instance.LightLineBetween(touchedRunes[touchedRunes.Count - 2], rune);
         }
     }
 
