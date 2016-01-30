@@ -14,5 +14,13 @@ public class Rune : MonoBehaviour {
         }
     }
 
+    void OnTriggerExit2d(Collider2D other)
+    {
+        if (TouchInput.ActiveTouch)
+        {
+            RuneTouch.Instance.AddTouch(runeType);
+        }
+    }
+
 
 }
