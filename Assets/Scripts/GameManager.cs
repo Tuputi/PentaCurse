@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour {
 
 
         SpellList.Instance.DarkenRunes();
+        LineLighterHelper.Instance.DarkenLines();
         currentSymbol.GetComponent<Animator>().Play("RuneSymbolSend");
         currentSymbol = null;
         currentSpell = null;
