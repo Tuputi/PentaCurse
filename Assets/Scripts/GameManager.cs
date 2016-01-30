@@ -69,7 +69,10 @@ public class GameManager : MonoBehaviour {
         Image runeSymbol = Instantiate(RuneSymbolBase);
 
         if (currentSpell == SpellList.Instance.fallBack){
-            PlayerScript.LocalInstance.ChangeCurrentHealth(-10);
+            if (PlayerScript.LocalInstance != null)
+            {
+                PlayerScript.LocalInstance.ChangeCurrentHealth(-10);
+            }
         } 
 
         runeSymbol.sprite = spell.RuneSymbol;
