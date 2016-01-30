@@ -20,7 +20,10 @@ public class RuneTouch : Manager<RuneTouch> {
         touchedRunes.Add(rune);
         SpellList.Instance.LightUpRune(rune);
 
-		SoundScript.Instance.PlaySound (SoundScript.Instance.selectsound);
+        if (SoundScript.Instance != null)
+        {
+            SoundScript.Instance.PlaySound(SoundScript.Instance.selectsound);
+        }
 
         if(touchedRunes.Count > 1)
         {
