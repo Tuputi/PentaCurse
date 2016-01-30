@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour {
     public Canvas canvas;
     public RuneSymbol currentSymbol;
     public Spell currentSpell;
+
+    public Image Clouds;
     
     public static GameState state = GameState.draw;
 
@@ -62,14 +64,13 @@ public class GameManager : MonoBehaviour {
     public void ReadySpell(Spell spell)
     {
         currentSpell = spell;
-       // SpellList.Instance.LightUpSpellRunes(currentSpell);
+        // SpellList.Instance.LightUpSpellRunes(currentSpell);
         state = GameState.send;
         Image runeSymbol = Instantiate(RuneSymbolBase);
 
-        if (currentSpell.SpellName.Equals("Fallback")){
-            runeSymbol.color = Color.red;
+        if (currentSpell == SpellList.Instance.fallBack){
             PlayerScript.LocalInstance.ChangeCurrentHealth(-10);
-        }
+        } 
 
         runeSymbol.sprite = spell.RuneSymbol;
         runeSymbol.transform.SetParent(canvas.transform, false);
