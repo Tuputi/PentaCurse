@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour {
                 
             }
             cloud.gameObject.SetActive(true);
+			SoundScript.Instance.PlaySound (SoundScript.Instance.spellfail);
         } 
 
         runeSymbol.sprite = spell.RuneSymbol;
@@ -107,6 +108,6 @@ public class GameManager : MonoBehaviour {
             PlayerScript.LocalInstance.SetCurrentSpell(spell);
         }
 		SoundScript.Instance.LetGo ();
-		SoundScript.Instance.PlaySound (SoundScript.Instance.spellcast);
+
     }
 }
