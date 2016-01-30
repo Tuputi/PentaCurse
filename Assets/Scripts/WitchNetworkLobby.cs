@@ -26,17 +26,20 @@ public class WitchNetworkLobby : MonoBehaviour
 
     public void PressClient()
     {
-        NetworkManager.singleton.StartClient();
+        var client = NetworkManager.singleton.StartClient();
+        client.Connect("localhost", 7777);
         Debug.Log("Press Client");
         CurrentState = NetworkState.IsClient;
     }
 
     public void PressStart()
     {
-        ClientScene.Ready(NetworkManager.singleton.client.connection);
-
-        //NetworkClient.Start
-        Debug.Log("Press Start");
+        if (PlayerLobbyCharacter.LocalInstance != null) {
+            PlayerLobbyCharacter.LocalInstance.SendReadyToBeginMessage();
+            Debug.Log("Press Start");
+        } else {
+            ClientScene.Ready(NetworkManager.singleton.client.connection);
+        }
     }
 
     public void PressBack()
