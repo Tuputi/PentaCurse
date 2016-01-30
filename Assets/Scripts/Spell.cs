@@ -11,5 +11,5 @@ public class Spell : ScriptableObject{
     public Sprite RuneSymbol;
     public AudioClip SendSound;
 
-
+    public List<CounterSpellResult> Results;
 }
