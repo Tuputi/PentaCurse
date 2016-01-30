@@ -22,9 +22,20 @@ public class HotseatManager : Manager<HotseatManager>
         }
     }
 
+    public HotseatPlayer OtherPlayer
+    {
+        get
+        {
+            if(CurrentPlayerIndex == 0) {
+                return HotseatPlayers[1];
+            } else {
+                return HotseatPlayers[0];
+            }
+        }
+    }
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         HotseatPlayers = GameObject.FindObjectsOfType<HotseatPlayer>();
         ResetBoard();
@@ -67,6 +78,10 @@ public class HotseatManager : Manager<HotseatManager>
 
     public void ResetBoard()
     {
+        foreach(var player in HotseatPlayers) {
+            player.PlayerBoard.Disable();
+        }
+
         CurrentGameState = HotSeatGameState.Initial;
         CurrentTimerValue = CountdownTimer;
         CurrentVictoryValue = 0;
@@ -87,6 +102,8 @@ public class HotseatManager : Manager<HotseatManager>
     {
         Debug.Log("StartGame");
         CurrentPlayerIndex = 0;
+        CurrentPlayer.PlayerBoard.Enable();
+        OtherPlayer.PlayerBoard.Disable();
         Debug.Log("Current Player index is " + CurrentPlayerIndex);
         CurrentTimerValue = TurnTimerValue;
         CurrentGameState = HotSeatGameState.Playing;
@@ -94,8 +111,11 @@ public class HotseatManager : Manager<HotseatManager>
 
     public void ChangePlayerTurn()
     {
+        CurrentPlayer.PlayerBoard.Disable();
+        RuneTouch.Instance.ClearRunes();
         CurrentTimerValue = TurnTimerValue;
         ToggleCurrentPlayer();
         Debug.Log("Current Player index is " + CurrentPlayerIndex);
+        CurrentPlayer.PlayerBoard.Enable();
     }
 }

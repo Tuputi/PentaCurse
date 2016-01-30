@@ -5,18 +5,29 @@ using UnityEngine.UI;
 public class LineLighterHelper : Manager<LineLighterHelper>
 {
 
-    public List<Line> lines;
+    public List<Line> lines1;
+    public List<Line> lines2;
     Color oldColor;
 
     void Awake()
     {
-        oldColor = lines[0].GetComponent<Image>().color;
+        oldColor = lines1[0].GetComponent<Image>().color;
     }
 
     public void LightLineBetween(RuneType a, RuneType b)
     {
+        List<Line> activeList = new List<Line>();
+        int i = HotseatManager.Instance.CurrentPlayerIndex;
+        if(i == 0)
+        {
+            activeList = lines2;
+        }
+        else
+        {
+            activeList = lines1;
+        }
         Debug.Log("a: " + a + " b: " + b);
-        foreach(Line line in lines)
+        foreach(Line line in activeList)
         {
             if(line.runes.Contains(a) && line.runes.Contains(b))
             {
@@ -30,7 +41,17 @@ public class LineLighterHelper : Manager<LineLighterHelper>
 
     public void DarkenLines()
     {
-        foreach(Line line in lines)
+        List<Line> activeList = new List<Line>();
+        int i = HotseatManager.Instance.CurrentPlayerIndex;
+        if (i == 0)
+        {
+            activeList = lines2;
+        }
+        else
+        {
+            activeList = lines1;
+        }
+        foreach (Line line in activeList)
         {
             line.GetComponent<Image>().color = oldColor;
         }
