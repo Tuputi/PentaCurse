@@ -9,7 +9,7 @@ public class TouchInput : MonoBehaviour {
     private Vector2 startPos;
     private float swipeStartTime;
     public float minVelocity = -50f;
-    public float minSwipeDistance = 0.0f;
+    public float minSwipeDistance = 25.0f;
     Vector2 mXAxis = new Vector2(1, 0);
     Vector2 mYAxis = new Vector2(0, 1);
     float minAngle = 30f;
@@ -101,8 +101,8 @@ public class TouchInput : MonoBehaviour {
                 Vector2 swipeVector = endPos - startPos;
                 float velocity = swipeVector.magnitude / DeltaTime;
 
-                if(velocity > minVelocity && swipeVector.magnitude > minSwipeDistance)
-                {
+               // if(velocity > minVelocity && swipeVector.magnitude > minSwipeDistance)
+               // {
                     //ladies and gentlement, we have a swipe
                     cursorImage.color = Color.green;
 
@@ -144,7 +144,7 @@ public class TouchInput : MonoBehaviour {
                             //errror
                         }
                     }
-                }
+                //}
             }
         }
     }

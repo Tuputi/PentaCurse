@@ -57,6 +57,11 @@ public class SpellList : Manager<SpellList>
         }
     }
 
+    public void LightUpRune(RuneType runeType)
+    {
+        RuneImages[runeType].GetComponent<Animator>().SetBool("LightUp", true);
+    }
+
     public void LightUpSpellRunes(Spell spell)
     {
         Debug.Log("LIghtenUP" + spell.Runes.Count);

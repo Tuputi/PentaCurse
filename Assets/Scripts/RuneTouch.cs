@@ -18,6 +18,7 @@ public class RuneTouch : Manager<RuneTouch> {
         }
        
         touchedRunes.Add(rune);
+        SpellList.Instance.LightUpRune(rune);
 
     }
 
