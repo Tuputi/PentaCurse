@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class RuneTouch : Manager<RuneTouch> {
 
@@ -12,7 +13,12 @@ public class RuneTouch : Manager<RuneTouch> {
 
     public void AddTouch(RuneType rune)
     {
+        if (touchedRunes.Count > 0 && touchedRunes.Last() == rune) {
+            return;
+        }
+       
         touchedRunes.Add(rune);
+
     }
 
     public void ClearRunes()

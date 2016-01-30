@@ -63,10 +63,19 @@ public class PlayerScript : NetworkBehaviour
         }
 
         CurrentSpellIndex = index;
+        CmdSetCurrentSpellIndex(index);
     }
 
+    [Command]
+    public void CmdSetCurrentSpellIndex(int index)
+    {
+        SetCurrentSpellIndex(index);
+    }
+
+    [Client]
     public void SetCurrentSpellIndex(int index)
     {
+        Debug.Log(index);
         if (index == -1) {
             CurrentSpellIndex = index;
             CurrentSpell = SpellList.Instance.fallBack;
@@ -74,5 +83,6 @@ public class PlayerScript : NetworkBehaviour
             CurrentSpellIndex = index;
             CurrentSpell = SpellList.Instance.spells[index];
         }
+        Debug.Log(CurrentSpell.SpellName);
     }
 }
