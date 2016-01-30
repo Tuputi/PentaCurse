@@ -48,6 +48,8 @@ public class PlayerScript : NetworkBehaviour
     public int CurrentSpellIndex;
 
     public Spell CurrentSpell;
+
+    [SyncVar( hook = "SetCurrentHealth")]
     public float CurrentHealth = 100;
 
     void Start()
@@ -122,7 +124,7 @@ public class PlayerScript : NetworkBehaviour
         Debug.Log(CurrentSpell.SpellName);
     }
 
-    public void SetCurrentSpellIndex(float health)
+    public void SetCurrentHealth(float health)
     {
             CurrentHealth = health;
     }
