@@ -39,22 +39,18 @@ public class SpellList : Manager<SpellList>
     public Spell CheckWhichSpell(List<RuneType> runes)
     {
         string str = "";
-        Debug.Log(runes.Count);
         foreach(RuneType rune in runes)
         {
             str += "\n" + rune.ToString();
         }
-        Debug.Log(str);
         Spell rightSpell = null;
         foreach(Spell sp in spells)
         {
             if(runes.Count == sp.Runes.Count && rightSpell == null)
             {
-                Debug.Log("Right amount of symbols");
                 for (int i = 0; i < runes.Count; i++){
                     if(runes[i] == sp.Runes[i])
                     {
-                        Debug.Log("Symbol " + i + " right");
                         rightSpell = sp;
                     }
                     else

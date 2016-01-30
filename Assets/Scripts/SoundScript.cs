@@ -24,7 +24,6 @@ public class SoundScript : Manager <SoundScript>{
 	public void PlaySound(AudioClip clip){
 		if (clip == selectsound) {
 			selectsoundcount++;
-			Debug.Log (selectsoundcount);
 			audiosource.pitch = (selectsoundcount / 20) + audiosource.pitch;
 		} else {
 			audiosource.pitch = 1;

@@ -103,8 +103,6 @@ public class GameManager : Manager<GameManager>
 
     public void OnComplete(Spell spell)
     {
-        Debug.Log("ReadySpell");
-
         if (PlayerScript.LocalInstance != null) {
             PlayerScript.LocalInstance.SetCurrentSpell(spell);
         }

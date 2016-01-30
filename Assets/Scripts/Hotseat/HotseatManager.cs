@@ -73,6 +73,7 @@ public class HotseatManager : Manager<HotseatManager>
         } else if (CurrentGameState == HotSeatGameState.Playing) {
             CurrentTimerValue -= Time.deltaTime;
             if (CurrentTimerValue <= 0) {
+                CastSpell(SpellList.Instance.fallBack);
                 ChangePlayerTurn();
             }
         }
@@ -128,10 +129,14 @@ public class HotseatManager : Manager<HotseatManager>
         } else {
             CurrentVictoryValue += amount;
         }
+
+        Debug.Log(CurrentPlayerIndex + " lost " + amount + "health");
+        Debug.Log(CurrentVictoryValue);
     }
 
     public void CastSpell(Spell spell)
     {
+        Debug.Log("Cast spell " + spell);
         if(CurrentSpell == null) {
             CurrentSpell = spell;
         } else {

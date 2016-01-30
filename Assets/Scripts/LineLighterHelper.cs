@@ -26,13 +26,11 @@ public class LineLighterHelper : Manager<LineLighterHelper>
         {
             activeList = lines1;
         }
-        Debug.Log("a: " + a + " b: " + b);
+
         foreach(Line line in activeList)
         {
             if(line.runes.Contains(a) && line.runes.Contains(b))
             {
-                Debug.Log("Foundline");
-               
                 line.GetComponent<Image>().color = new Color(255, 255, 255);
                 return;
             }
