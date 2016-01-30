@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour {
 
     public void ClearCurrentSpell()
     {
+        SpellList.Instance.DarkenRunes();
         GameObject.Destroy(currentSymbol.gameObject);
         currentSymbol = null;
         currentSpell = null;
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour {
     public void ReadySpell(Spell spell)
     {
         currentSpell = spell;
+        SpellList.Instance.LightUpSpellRunes(currentSpell);
         state = GameState.send;
         Image runeSymbol = Instantiate(RuneSymbolBase);
         runeSymbol.transform.SetParent(canvas.transform, false);
