@@ -6,6 +6,7 @@ public class SoundScript : Manager <SoundScript>{
 	public AudioClip spellcast;
 	public AudioClip selectsound;
 	public AudioClip spellfail;
+	public AudioClip boom;
 	AudioSource audiosource;
 	float selectsoundcount;
 
