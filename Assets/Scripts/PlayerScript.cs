@@ -126,6 +126,20 @@ public class PlayerScript : NetworkBehaviour
 
     public void SetCurrentHealth(float health)
     {
-            CurrentHealth = health;
+        CurrentHealth = health;
+        CmdIssueSetHealth(health);
+    }
+
+    [Command]
+    public void CmdIssueSetHealth(float health)
+    {
+        CurrentHealth = health;
+        UpdateHealth(health);
+
+    }
+    [Client]
+    public void UpdateHealth(float health)
+    {
+        CurrentHealth = health;
     }
 }
