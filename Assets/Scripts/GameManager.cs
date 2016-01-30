@@ -64,18 +64,13 @@ public class GameManager : MonoBehaviour {
     public void ReadySpell(Spell spell)
     {
         currentSpell = spell;
-       // SpellList.Instance.LightUpSpellRunes(currentSpell);
-
-        if (currentSpell == SpellList.Instance.fallBack){
-            var cloudSymbol = Instantiate(Clouds) as Image;
-            cloudSymbol.transform.SetParent(canvas.transform);
-            cloudSymbol.transform.localPosition = new Vector2(0, -120);
-            PlayerScript.LocalInstance.ChangeCurrentHealth(-10);
-            return;
-        } 
-
+        // SpellList.Instance.LightUpSpellRunes(currentSpell);
         state = GameState.send;
         Image runeSymbol = Instantiate(RuneSymbolBase);
+
+        if (currentSpell == SpellList.Instance.fallBack){
+            PlayerScript.LocalInstance.ChangeCurrentHealth(-10);
+        } 
 
         runeSymbol.sprite = spell.RuneSymbol;
         runeSymbol.transform.SetParent(canvas.transform, false);
