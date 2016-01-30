@@ -18,7 +18,7 @@ public class TouchInput : MonoBehaviour {
 
     public static bool ActiveTouch = false;
 
-    public bool TouchEnabled = true;
+    public bool TouchEnabled = false;
 
    
     public enum SwipeDirection { sNone, sLeft, sRight, sUp, sDown };
@@ -28,6 +28,10 @@ public class TouchInput : MonoBehaviour {
     void Start()
     {
         swipeDir = SwipeDirection.sNone;
+        if(Application.platform == RuntimePlatform.Android)
+        {
+            TouchEnabled = true;
+        }
     }
 
     void Update()

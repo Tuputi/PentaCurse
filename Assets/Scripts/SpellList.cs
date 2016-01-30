@@ -26,6 +26,14 @@ public class SpellList : Manager<SpellList>
 
     public Spell CheckWhichSpell(List<RuneType> runes)
     {
+        string str = "";
+        Debug.Log(runes.Count);
+        foreach(RuneType rune in runes)
+        {
+            str += "\n" + rune.ToString();
+        }
+        Debug.Log(str);
+
         Spell rightSpell = null;
         foreach(Spell sp in spells)
         {

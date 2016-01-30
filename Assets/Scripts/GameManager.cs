@@ -65,6 +65,11 @@ public class GameManager : MonoBehaviour {
        // SpellList.Instance.LightUpSpellRunes(currentSpell);
         state = GameState.send;
         Image runeSymbol = Instantiate(RuneSymbolBase);
+        if (currentSpell.SpellName.Equals("Fallback"))
+        {
+            runeSymbol.color = Color.red;
+        }
+
         runeSymbol.transform.SetParent(canvas.transform, false);
         runeSymbol.transform.localPosition = new Vector2(0, -120);
         currentSymbol = runeSymbol.GetComponent<RuneSymbol>();
