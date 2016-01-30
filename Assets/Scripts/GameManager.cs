@@ -50,7 +50,8 @@ public class GameManager : MonoBehaviour {
     public void ClearCurrentSpell()
     {
         SpellList.Instance.DarkenRunes();
-        GameObject.Destroy(currentSymbol.gameObject);
+        //GameObject.Destroy(currentSymbol.gameObject);
+        currentSymbol.GetComponent<Animator>().Play("RuneSymbolSend");
         currentSymbol = null;
         currentSpell = null;
         state = GameState.draw;
