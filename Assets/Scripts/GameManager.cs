@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
         }
 
         if (SpellInitiated) {
-            if (!TouchInput.ActiveTouch) {
+            if (!TouchInput.ActiveTouch && RuneTouch.Instance.GetRunes().Count > 0) {
                 Spell spell = SpellList.Instance.CheckWhichSpell(RuneTouch.Instance.GetRunes());
                 RuneTouch.Instance.ClearRunes();
                 SpellInitiated = false;
@@ -70,5 +70,9 @@ public class GameManager : MonoBehaviour {
     public void OnComplete(Spell spell)
     {
         Debug.Log("ReadySpell");
+
+        if (PlayerScript.LocalInstance != null) {
+            PlayerScript.LocalInstance.SetCurrentSpell(spell);
+        }
     }
 }
