@@ -44,8 +44,9 @@ public class RuneTouch : Manager<RuneTouch> {
     }
 
     public void WriteOut()
-    {
-        string tempString = "Spell cast:";
+    {	
+		
+		string tempString = "Spell cast:";
         foreach(RuneType rt in touchedRunes)
         {
             tempString += "\n" + rt;
@@ -55,7 +56,6 @@ public class RuneTouch : Manager<RuneTouch> {
         //clear
         ClearRunes();
 
-		SoundScript.Instance.LetGo ();
-		SoundScript.Instance.PlaySound (SoundScript.Instance.spellcast);
+
     }
 }
