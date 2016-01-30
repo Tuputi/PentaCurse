@@ -50,7 +50,6 @@ public class GameManager : Manager<GameManager>
     public void UpdateSwipe()
     {
         if (TouchInput.swipeDir == TouchInput.SwipeDirection.sUp) {
-            OnComplete(currentSpell);
             ClearCurrentSpell();
         } else if(TouchInput.swipeDir == TouchInput.SwipeDirection.sLeft || TouchInput.swipeDir == TouchInput.SwipeDirection.sRight) {
             ClearCurrentSpell();
@@ -59,6 +58,9 @@ public class GameManager : Manager<GameManager>
 
     public void ClearCurrentSpell()
     {
+        SoundScript.Instance.LetGo();
+        SoundScript.Instance.PlaySound(currentSpell.SendSound);
+
         //sorry for silvertejp
         if (cloud.gameObject.activeSelf)
         {
@@ -86,19 +88,8 @@ public class GameManager : Manager<GameManager>
                 var health = PlayerScript.LocalInstance.CurrentHealth - 10;
                 PlayerScript.LocalInstance.SetCurrentHealth(health);
             }
-            cloud.gameObject.SetActive(true);
-            OnComplete(currentSpell);
         } 
 
         ClearCurrentSpell();
-    }
-
-    public void OnComplete(Spell spell)
-    {
-        if (PlayerScript.LocalInstance != null) {
-            PlayerScript.LocalInstance.SetCurrentSpell(spell);
-        }
-		SoundScript.Instance.LetGo ();
-		SoundScript.Instance.PlaySound (spell.SendSound);
     }
 }
