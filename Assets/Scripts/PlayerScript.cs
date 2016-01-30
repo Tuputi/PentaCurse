@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class PlayerScript : NetworkBehaviour
 {
     public static PlayerScript s_localInstance;
+    public static PlayerScript s_otherInstance;
 
     public static PlayerScript LocalInstance
     {
@@ -23,13 +24,50 @@ public class PlayerScript : NetworkBehaviour
             return s_localInstance;
         }
     }
+
+    public static PlayerScript OtherInstance
+    {
+        get
+        {
+            if (s_otherInstance == null) {
+                var players = GameObject.FindObjectsOfType<PlayerScript>();
+                foreach (var player in players) {
+                    if (!player.isLocalPlayer) {
+                        s_otherInstance = player;
+                    }
+                }
+            }
+
+            return s_otherInstance;
+        }
+    }
+
+    private TouchInput TouchInput;
+
     [SyncVar(hook = "SetCurrentSpellIndex")]
     public int CurrentSpellIndex;
 
     public Spell CurrentSpell;
 
+    [SyncVar(hook = "SetCurrentHealth")]
+    public float CurrentHealth = 100;
+
     void Start()
     {
+    }
+
+    void Update()
+    {
+        if(TouchInput == null) {
+            TouchInput = AquireInput();
+        } else {
+            TouchInput.UpdateInput(isLocalPlayer);
+        }
+    }
+
+    public TouchInput AquireInput()
+    {
+        return GameObject.FindObjectOfType<TouchInput>();
     }
 
     public void IssueStartGameCommand()
@@ -84,5 +122,10 @@ public class PlayerScript : NetworkBehaviour
             CurrentSpell = SpellList.Instance.spells[index];
         }
         Debug.Log(CurrentSpell.SpellName);
+    }
+
+    public void SetCurrentHealth(float health)
+    {
+        CurrentHealth = health; 
     }
 }

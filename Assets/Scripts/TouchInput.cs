@@ -34,8 +34,12 @@ public class TouchInput : MonoBehaviour {
         }
     }
 
-    void Update()
+    public void UpdateInput(bool isLocalPlayer)
     {
+        if (!isLocalPlayer) {
+            return;
+        }
+
         if (!TouchEnabled)
         {
             MouseControl();
