@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.Networking;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerScript : NetworkBehaviour
 {
@@ -41,6 +42,8 @@ public class PlayerScript : NetworkBehaviour
             return s_otherInstance;
         }
     }
+
+    public GameObject EnemyRunePrefab;
 
     private TouchInput TouchInput;
 
@@ -113,7 +116,6 @@ public class PlayerScript : NetworkBehaviour
     [Client]
     public void SetCurrentSpellIndex(int index)
     {
-        Debug.Log(index);
         if (index == -1) {
             CurrentSpellIndex = index;
             CurrentSpell = SpellList.Instance.fallBack;
@@ -121,7 +123,19 @@ public class PlayerScript : NetworkBehaviour
             CurrentSpellIndex = index;
             CurrentSpell = SpellList.Instance.spells[index];
         }
-        Debug.Log(CurrentSpell.SpellName);
+
+        if (!isLocalPlayer) {
+            Debug.Log("Enemy set their spell");
+
+            foreach(var rune in GameObject.FindObjectsOfType<EnemyRune>()) {
+                GameObject.Destroy(rune.gameObject);
+            }
+
+            var tmpObject = GameObject.Instantiate(EnemyRunePrefab, Vector3.zero, Quaternion.identity) as GameObject;
+            tmpObject.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform, false);
+            tmpObject.transform.localPosition = new Vector3(0, 900, 0);
+            tmpObject.GetComponent<Image>().sprite = CurrentSpell.RuneSymbol;
+        }
     }
 
     public void SetCurrentHealth(float health)

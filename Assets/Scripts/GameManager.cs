@@ -11,6 +11,14 @@ public class GameManager : MonoBehaviour {
     public Spell currentSpell;
 
     public Image Clouds;
+
+    public Image cloud;
+
+    void Awake()
+    {
+        cloud = GameObject.Find("Cloud").GetComponent<Image>();
+        cloud.gameObject.SetActive(false);
+    }
     
     public static GameState state = GameState.draw;
 
@@ -51,8 +59,14 @@ public class GameManager : MonoBehaviour {
 
     public void ClearCurrentSpell()
     {
+        //sorry for silvertejp
+        if (cloud.gameObject.activeSelf)
+        {
+            cloud.gameObject.SetActive(false);
+        }
+
+
         SpellList.Instance.DarkenRunes();
-        //GameObject.Destroy(currentSymbol.gameObject);
         currentSymbol.GetComponent<Animator>().Play("RuneSymbolSend");
         currentSymbol = null;
         currentSpell = null;
@@ -64,7 +78,6 @@ public class GameManager : MonoBehaviour {
     public void ReadySpell(Spell spell)
     {
         currentSpell = spell;
-        // SpellList.Instance.LightUpSpellRunes(currentSpell);
         state = GameState.send;
         Image runeSymbol = Instantiate(RuneSymbolBase);
 
@@ -73,7 +86,10 @@ public class GameManager : MonoBehaviour {
             {
                 var health = PlayerScript.LocalInstance.CurrentHealth - 10;
                 PlayerScript.LocalInstance.SetCurrentHealth(health);
+
+                
             }
+            cloud.gameObject.SetActive(true);
         } 
 
         runeSymbol.sprite = spell.RuneSymbol;
