@@ -78,6 +78,10 @@ public class HotseatManager : Manager<HotseatManager>
 
     public void ResetBoard()
     {
+        foreach(var player in HotseatPlayers) {
+            player.PlayerBoard.Disable();
+        }
+
         CurrentGameState = HotSeatGameState.Initial;
         CurrentTimerValue = CountdownTimer;
         CurrentVictoryValue = 0;
