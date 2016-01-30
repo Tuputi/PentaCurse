@@ -4,11 +4,12 @@ using UnityEngine.UI;
 
 public class TouchInput : MonoBehaviour {
 
+    public UnityEngine.UI.Text text;
 
     private Vector2 startPos;
     private float swipeStartTime;
-    public float minVelocity = 50f;
-    public float minSwipeDistance = 2000.0f;
+    public float minVelocity = -50f;
+    public float minSwipeDistance = 0.0f;
     Vector2 mXAxis = new Vector2(1, 0);
     Vector2 mYAxis = new Vector2(0, 1);
     float minAngle = 30f;
@@ -41,7 +42,7 @@ public class TouchInput : MonoBehaviour {
         {
             DrawState();
         }
-        else
+        else if( GameManager.state == GameState.send)
         {
             SwipeState();
         }
@@ -71,9 +72,13 @@ public class TouchInput : MonoBehaviour {
 
     public void SwipeState()
     {
+        cursorImage.color = Color.black;
+
         int NumberOfTouches = Input.touchCount;
         if (NumberOfTouches > 0)
         {
+            cursorImage.color = Color.red;
+
             Touch touch = Input.GetTouch(0);
 
             if(touch.phase == TouchPhase.Began)
@@ -82,7 +87,13 @@ public class TouchInput : MonoBehaviour {
                 swipeStartTime = Time.time;
             }
 
-            if(touch.phase == TouchPhase.Ended)
+            float tempDelta = Time.deltaTime - swipeStartTime;
+            Vector2 tempswipeVector = touch.position - startPos;
+            float tempvelocity = tempswipeVector.magnitude / tempDelta;
+            text.text = "TempVelo " +tempvelocity.ToString();
+            text.text += "\n tempmagni " + tempswipeVector.magnitude;
+
+            if (touch.phase == TouchPhase.Ended)
             {
                 float DeltaTime = Time.time - swipeStartTime;
                 Vector2 endPos = touch.position;
@@ -93,6 +104,8 @@ public class TouchInput : MonoBehaviour {
                 if(velocity > minVelocity && swipeVector.magnitude > minSwipeDistance)
                 {
                     //ladies and gentlement, we have a swipe
+                    cursorImage.color = Color.green;
+
                     swipeVector.Normalize();
 
                     float angleOfSwipe = Vector2.Dot(swipeVector, mXAxis);
