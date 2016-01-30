@@ -51,5 +51,6 @@ public class RuneTouch : Manager<RuneTouch> {
         ClearRunes();
 
 		SoundScript.Instance.LetGo ();
+		SoundScript.Instance.PlaySound (SoundScript.Instance.spellcast);
     }
 }
