@@ -66,7 +66,7 @@ public class GameManager : Manager<GameManager>
             cloud.gameObject.SetActive(false);
         }
 
-        HotseatManager.Instance.CurrentPlayer.CurrentSpell = currentSpell;
+        HotseatManager.Instance.CastSpell(currentSpell);
         SpellList.Instance.DarkenRunes();
         LineLighterHelper.Instance.DarkenLines();
         currentSymbol.GetComponent<Animator>().Play("RuneSymbolSend");
