@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour {
             {
                 WaitingForSwipe = false;
                 state = GameState.draw;
+                TouchInput.ActiveTouch = false;
                 Debug.Log("Send spell");
                 OnComplete(currentSpell);
             }
@@ -56,8 +57,6 @@ public class GameManager : MonoBehaviour {
 
     public void OnComplete(Spell spell)
     {
-
+        Debug.Log("ReadySpell");
     }
-    
-
 }

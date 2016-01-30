@@ -154,5 +154,9 @@ public class TouchInput : MonoBehaviour {
                 swipeDir = SwipeDirection.sUp;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+            GameManager.state = GameState.draw;
+        }
     }
 }
