@@ -153,15 +153,14 @@ public class TouchInput : MonoBehaviour {
             }
         }
 
-        if(GameManager.state == GameState.send) {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                swipeDir = SwipeDirection.sUp;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.DownArrow)) {
-            GameManager.state = GameState.draw;
+        if (Input.GetKeyDown(KeyCode.UpArrow)) {
+            swipeDir = SwipeDirection.sUp;
+        } else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+            swipeDir = SwipeDirection.sDown;
+        } else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+            swipeDir = SwipeDirection.sLeft;
+        } else if (Input.GetKeyDown(KeyCode.RightArrow)) {
+            swipeDir = SwipeDirection.sRight;
         }
     }
 }

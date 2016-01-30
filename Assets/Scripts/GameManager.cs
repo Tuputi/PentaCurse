@@ -40,12 +40,21 @@ public class GameManager : MonoBehaviour {
     public void UpdateSwipe()
     {
         if (TouchInput.swipeDir == TouchInput.SwipeDirection.sUp) {
-            currentSpell = null;
-            state = GameState.draw;
-            TouchInput.ActiveTouch = false;
-            TouchInput.swipeDir = TouchInput.SwipeDirection.sNone;
             OnComplete(currentSpell);
+            ClearCurrentSpell();
+        } else if(TouchInput.swipeDir == TouchInput.SwipeDirection.sLeft || TouchInput.swipeDir == TouchInput.SwipeDirection.sRight) {
+            ClearCurrentSpell();
         }
+    }
+
+    public void ClearCurrentSpell()
+    {
+        GameObject.Destroy(currentSymbol.gameObject);
+        currentSymbol = null;
+        currentSpell = null;
+        state = GameState.draw;
+        TouchInput.ActiveTouch = false;
+        TouchInput.swipeDir = TouchInput.SwipeDirection.sNone;
     }
 
     public void ReadySpell(Spell spell)
