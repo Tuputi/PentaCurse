@@ -1,15 +1,28 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
-public class LineLighterHelper : MonoBehaviour {
+public class LineLighterHelper : Manager<LineLighterHelper>
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public List<Line> lines;
+
+
+    public void LightLineBetween(RuneType a, RuneType b)
+    {
+        foreach(Line line in lines)
+        {
+            if(line.runes.Contains(a) && line.runes.Contains(b))
+            {
+                line.GetComponent<Animator>().SetBool("LightUp", true);
+            }
+        }
+    }
+
+    public void DarkenLines()
+    {
+        foreach(Line line in lines)
+        {
+            line.GetComponent<Animator>().SetBool("LightUp", false);
+        }
+    }
 }
