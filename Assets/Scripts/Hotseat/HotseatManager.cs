@@ -14,6 +14,8 @@ public class HotseatManager : Manager<HotseatManager>
     public float CurrentDamagePool;
     public float CurrentVictoryValue;
 
+    public Spell CurrentSpell;
+
     public HotseatPlayer CurrentPlayer
     {
         get
@@ -117,5 +119,34 @@ public class HotseatManager : Manager<HotseatManager>
         ToggleCurrentPlayer();
         Debug.Log("Current Player index is " + CurrentPlayerIndex);
         CurrentPlayer.PlayerBoard.Enable();
+    }
+
+    public void TakeDamage(float amount)
+    {
+        if(CurrentPlayerIndex == 0) {
+            CurrentVictoryValue -= amount;
+        } else {
+            CurrentVictoryValue += amount;
+        }
+    }
+
+    public void CastSpell(Spell spell)
+    {
+        if(CurrentSpell == null) {
+            CurrentSpell = spell;
+        } else {
+
+            var result = SpellUtilties.GetResult(CurrentSpell, spell);
+
+            if(result == SpellResult.Equal) {
+                ResetCurrentDamagePool();
+            }else if(result == SpellResult.Winning) {
+                CurrentDamagePool += SuccessfullSpellDamageIncrease;
+            }else if(result == SpellResult.Losing) {
+                TakeDamage(CurrentDamagePool);
+                ResetCurrentDamagePool();
+            }
+            CurrentSpell = spell;
+        }
     }
 }

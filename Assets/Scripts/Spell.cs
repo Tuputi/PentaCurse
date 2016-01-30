@@ -10,6 +10,4 @@ public class Spell : ScriptableObject{
     public string SpellName;
     public Sprite RuneSymbol;
     public AudioClip SendSound;
-
-    public List<CounterSpellResult> Results;
 }
