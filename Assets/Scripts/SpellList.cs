@@ -33,15 +33,16 @@ public class SpellList : Manager<SpellList>
             str += "\n" + rune.ToString();
         }
         Debug.Log(str);
-
         Spell rightSpell = null;
         foreach(Spell sp in spells)
         {
-            if(runes.Count == sp.Runes.Count)
+            if(runes.Count == sp.Runes.Count && rightSpell == null)
             {
+                Debug.Log("Right amount of symbols");
                 for (int i = 0; i < runes.Count; i++){
                     if(runes[i] == sp.Runes[i])
                     {
+                        Debug.Log("Symbol " + i + " right");
                         rightSpell = sp;
                     }
                     else
@@ -69,6 +70,12 @@ public class SpellList : Manager<SpellList>
     {
         RuneImages[runeType].GetComponent<Animator>().SetBool("LightUp", true);
     }
+
+    public void LightUpLine(RuneType a, RuneType b)
+    {
+
+    }
+
 
     public void LightUpSpellRunes(Spell spell)
     {

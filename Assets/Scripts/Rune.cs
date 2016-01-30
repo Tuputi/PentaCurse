@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Rune : MonoBehaviour {
 
@@ -11,7 +12,7 @@ public class Rune : MonoBehaviour {
         {
             RuneTouch.Instance.AddTouch(runeType);
         }
-
-        
     }
+
+
 }
