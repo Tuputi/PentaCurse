@@ -14,6 +14,6 @@ public class HotseatSkull : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Slider.value = Mathf.Lerp(Slider.value, HotseatManager.Instance.CurrentVictoryValue, 0.1f);
+        Slider.value = Mathf.Lerp(Slider.value, HotseatManager.Instance.CurrentVictoryValue, 0.05f);
 	}
 }

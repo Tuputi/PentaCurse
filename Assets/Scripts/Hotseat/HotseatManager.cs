@@ -121,16 +121,15 @@ public class HotseatManager : Manager<HotseatManager>
         CurrentPlayer.PlayerBoard.Enable();
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage()
     {
         if(CurrentPlayerIndex == 1) {
-            CurrentVictoryValue -= amount;
+            CurrentVictoryValue -= SuccessfullSpellDamageIncrease;
         } else {
-            CurrentVictoryValue += amount;
+            CurrentVictoryValue += SuccessfullSpellDamageIncrease;
         }
 
-        Debug.Log(CurrentPlayerIndex + " lost " + amount + "health");
-        Debug.Log(CurrentVictoryValue);
+        Debug.Log("CurrentVictoryValue: " + CurrentVictoryValue);
     }
 
     public void CastSpell(Spell spell)
@@ -146,14 +145,14 @@ public class HotseatManager : Manager<HotseatManager>
             Debug.Log("Result = " + result);
             if(result == SpellResult.Equal) {
                 ResetCurrentDamagePool();
-            }else if(result == SpellResult.Winning) {
-                CurrentDamagePool += SuccessfullSpellDamageIncrease;
-            }else if(result == SpellResult.Losing) {
-                CurrentDamagePool += SuccessfullSpellDamageIncrease;
-                TakeDamage(CurrentDamagePool);
-                ResetCurrentDamagePool();
+                CurrentSpell = spell;
+            } else if(result == SpellResult.Winning) {
+                CurrentSpell = spell;
+            } else if(result == SpellResult.Losing) {
+                TakeDamage();
+                CurrentSpell = null;
+                GameObject.Destroy(CurrentTopCard.gameObject);
             }
-            CurrentSpell = spell;
         }
     }
 
