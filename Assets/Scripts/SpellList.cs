@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class SpellList : Manager<SpellList>
 {
-    public List<Image> PublicRuneImages;
-    private Dictionary<RuneType, Image> RuneImages;
+    public List<Image> PublicRuneImages1;
+    public List<Image> PublicRuneImages2;
+    private Dictionary<RuneType, Image> RuneImages1;
+    private Dictionary<RuneType, Image> RuneImages2;
     public List<Spell> spells;
     public Spell fallBack;
     Color oldColor;
@@ -14,16 +16,23 @@ public class SpellList : Manager<SpellList>
 
     void Awake()
     {
-        oldColor = PublicRuneImages[0].color;
-        RuneImages = new Dictionary<RuneType, Image>();
+        oldColor = PublicRuneImages1[0].color;
+        RuneImages1 = new Dictionary<RuneType, Image>();
         int i = 1;
-        foreach(Image im in PublicRuneImages)
+        foreach(Image im in PublicRuneImages1)
         {
-            RuneImages.Add((RuneType)i, im);
+            RuneImages1.Add((RuneType)i, im);
             i++;
         }
 
-        Debug.Log("RuneCount " + RuneImages.Count);
+        RuneImages2 = new Dictionary<RuneType, Image>();
+        int j = 1;
+        foreach (Image im in PublicRuneImages2)
+        {
+            RuneImages2.Add((RuneType)j, im);
+            j++;
+        }
+
     }
 
 
@@ -73,15 +82,35 @@ public class SpellList : Manager<SpellList>
     {
         //RuneImages[runeType].GetComponent<Animator>().SetBool("LightUp", true);
         //oldColor = RuneImages[runeType].GetComponent<Image>().color;
-        RuneImages[runeType].GetComponent<Image>().color = new Color(255, 255, 255);
+        int i = HotseatManager.Instance.CurrentPlayerIndex;
+        if (i == 0)
+        {
+            RuneImages1[runeType].GetComponent<Image>().color = new Color(255, 255, 255);
+        }
+        else
+        {
+            RuneImages2[runeType].GetComponent<Image>().color = new Color(255, 255, 255);
+        }
     }
 
     public void DarkenRunes()
     {
-        foreach(Image i in PublicRuneImages)
+        int i = HotseatManager.Instance.CurrentPlayerIndex;
+        if (i == 0)
         {
-            //i.GetComponent<Animator>().SetBool("LightUp", false);
-            i.color = oldColor;
+            foreach (Image img in PublicRuneImages1)
+            {
+                //i.GetComponent<Animator>().SetBool("LightUp", false);
+                img.color = oldColor;
+            }
+        }
+        else
+        {
+            foreach (Image img in PublicRuneImages2)
+            {
+                //i.GetComponent<Animator>().SetBool("LightUp", false);
+                img.color = oldColor;
+            }
         }
     }
 

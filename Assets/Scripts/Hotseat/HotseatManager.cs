@@ -112,6 +112,7 @@ public class HotseatManager : Manager<HotseatManager>
     public void ChangePlayerTurn()
     {
         CurrentPlayer.PlayerBoard.Disable();
+        RuneTouch.Instance.ClearRunes();
         CurrentTimerValue = TurnTimerValue;
         ToggleCurrentPlayer();
         Debug.Log("Current Player index is " + CurrentPlayerIndex);

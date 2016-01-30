@@ -66,7 +66,7 @@ public class GameManager : Manager<GameManager>
             cloud.gameObject.SetActive(false);
         }
 
-
+        HotseatManager.Instance.CurrentPlayer.CurrentSpell = currentSpell;
         SpellList.Instance.DarkenRunes();
         LineLighterHelper.Instance.DarkenLines();
         currentSymbol.GetComponent<Animator>().Play("RuneSymbolSend");
@@ -75,6 +75,7 @@ public class GameManager : Manager<GameManager>
         state = GameState.draw;
         TouchInput.ActiveTouch = false;
         TouchInput.swipeDir = TouchInput.SwipeDirection.sNone;
+        HotseatManager.Instance.ChangePlayerTurn();
     }
 
     public void ReadySpell(Spell spell)
@@ -97,6 +98,7 @@ public class GameManager : Manager<GameManager>
         runeSymbol.transform.SetParent(canvas.transform, false);
         runeSymbol.transform.localPosition = new Vector2(0, -120);
         currentSymbol = runeSymbol.GetComponent<RuneSymbol>();
+        ClearCurrentSpell();
     }
 
     public void OnComplete(Spell spell)
