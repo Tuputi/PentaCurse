@@ -8,6 +8,6 @@ public class HotseatPlayer : MonoBehaviour {
 
     public void ResetPlayer()
     {
-
+        PlayerBoard.Overlay.FadeOut();
     }
 }

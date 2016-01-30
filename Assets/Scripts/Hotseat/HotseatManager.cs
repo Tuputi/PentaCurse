@@ -28,7 +28,7 @@ public class HotseatManager : Manager<HotseatManager>
     {
         get
         {
-            if(CurrentPlayerIndex == 0) {
+            if(CurrentPlayerIndex == 1) {
                 return HotseatPlayers[1];
             } else {
                 return HotseatPlayers[0];
@@ -89,10 +89,6 @@ public class HotseatManager : Manager<HotseatManager>
         CurrentTimerValue = CountdownTimer;
         CurrentVictoryValue = 0;
         CurrentDamagePool = 0;
-
-        foreach(var player in HotseatPlayers) {
-            player.ResetPlayer();
-        }
     }
 
     public void SetCountdownPhase()
