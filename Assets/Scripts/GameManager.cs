@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour {
         {
             runeSymbol.color = Color.red;
         }
-
+        runeSymbol.sprite = spell.RuneSymbol;
         runeSymbol.transform.SetParent(canvas.transform, false);
         runeSymbol.transform.localPosition = new Vector2(0, -120);
         currentSymbol = runeSymbol.GetComponent<RuneSymbol>();
