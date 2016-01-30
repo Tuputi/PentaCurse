@@ -12,46 +12,49 @@ public class GameManager : MonoBehaviour {
     
     public static GameState state = GameState.draw;
 
-    public bool WaitingForSwipe = false;
-
     void Update()
     {
-        if (TouchInput.ActiveTouch && !WaitingForSwipe)
-        {
+        if (currentSpell == null) {
+            UpdateSpellDraw();
+        } else {
+            UpdateSwipe();
+        }
+    }
+
+    public void UpdateSpellDraw()
+    {
+        if (TouchInput.ActiveTouch) {
             SpellInitiated = true;
         }
 
-        if (SpellInitiated == true)
-        {
-            if (!TouchInput.ActiveTouch)
-            {
+        if (SpellInitiated) {
+            if (!TouchInput.ActiveTouch) {
                 Spell spell = SpellList.Instance.CheckWhichSpell(RuneTouch.Instance.GetRunes());
                 RuneTouch.Instance.ClearRunes();
                 SpellInitiated = false;
                 ReadySpell(spell);
             }
         }
+    }
 
-        if (WaitingForSwipe)
-        {
-            if(TouchInput.swipeDir == TouchInput.SwipeDirection.sUp)
-            {
-                WaitingForSwipe = false;
-                state = GameState.draw;
-                TouchInput.ActiveTouch = false;
-                Debug.Log("Send spell");
-                OnComplete(currentSpell);
-            }
+    public void UpdateSwipe()
+    {
+        if (TouchInput.swipeDir == TouchInput.SwipeDirection.sUp) {
+            currentSpell = null;
+            state = GameState.draw;
+            TouchInput.ActiveTouch = false;
+            TouchInput.swipeDir = TouchInput.SwipeDirection.sNone;
+            OnComplete(currentSpell);
         }
     }
 
     public void ReadySpell(Spell spell)
     {
         currentSpell = spell;
+        state = GameState.send;
         Image runeSymbol = Instantiate(RuneSymbolBase);
         runeSymbol.transform.SetParent(canvas.transform, false);
         runeSymbol.transform.localPosition = new Vector2(0, -120);
-        WaitingForSwipe = true;
         currentSymbol = runeSymbol.GetComponent<RuneSymbol>();
     }
 

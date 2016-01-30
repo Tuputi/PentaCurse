@@ -20,9 +20,14 @@ public class TouchInput : MonoBehaviour {
     public bool TouchEnabled = true;
 
    
-    public enum SwipeDirection { sLeft, sRight, sUp, sDown };
+    public enum SwipeDirection { sNone, sLeft, sRight, sUp, sDown };
     
     public static SwipeDirection swipeDir;
+
+    void Start()
+    {
+        swipeDir = SwipeDirection.sNone;
+    }
 
     void Update()
     {
