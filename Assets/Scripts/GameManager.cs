@@ -65,11 +65,12 @@ public class GameManager : MonoBehaviour {
        // SpellList.Instance.LightUpSpellRunes(currentSpell);
         state = GameState.send;
         Image runeSymbol = Instantiate(RuneSymbolBase);
-        if (currentSpell.SpellName.Equals("Fallback"))
-        {
+
+        if (currentSpell.SpellName.Equals("Fallback")){
             runeSymbol.color = Color.red;
-            Healbar.Instance.ChangeHealth(-10, true);
+            PlayerScript.LocalInstance.CurrentHealth -= 10;
         }
+
         runeSymbol.sprite = spell.RuneSymbol;
         runeSymbol.transform.SetParent(canvas.transform, false);
         runeSymbol.transform.localPosition = new Vector2(0, -120);
