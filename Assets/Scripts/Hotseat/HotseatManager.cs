@@ -4,7 +4,10 @@ using System.Collections;
 public class HotseatManager : Manager<HotseatManager>
 {
     public GameObject SpellCardPRefab;
+    public GameObject RestartButtonPrefab;
+    public GameObject SkullPrefab;
 
+    public float VictoryScore = 50;
     public float CountdownTimer = 5;
     public float SuccessfullSpellDamageIncrease = 5;
     public float TurnTimerValue = 3;
@@ -103,6 +106,7 @@ public class HotseatManager : Manager<HotseatManager>
 
     public void StartGame()
     {
+        ClearSkulls();
         Debug.Log("StartGame");
         CurrentPlayerIndex = 0;
         CurrentPlayer.PlayerBoard.Enable();
@@ -119,7 +123,10 @@ public class HotseatManager : Manager<HotseatManager>
         CurrentTimerValue = TurnTimerValue;
         ToggleCurrentPlayer();
         Debug.Log("Current Player index is " + CurrentPlayerIndex);
-        CurrentPlayer.PlayerBoard.Enable();
+        
+        if (CurrentGameState != HotSeatGameState.Victory) {
+            CurrentPlayer.PlayerBoard.Enable();
+        }
     }
 
     public void TakeDamage()
@@ -130,7 +137,9 @@ public class HotseatManager : Manager<HotseatManager>
             CurrentVictoryValue += SuccessfullSpellDamageIncrease;
         }
 
-        Debug.Log("CurrentVictoryValue: " + CurrentVictoryValue);
+        if(Mathf.Abs(CurrentVictoryValue) == VictoryScore) {
+            SetVictory();
+        }
     }
 
     public void CastSpell(Spell spell)
@@ -171,5 +180,40 @@ public class HotseatManager : Manager<HotseatManager>
         CurrentTopCard.Image.sprite = spell.RuneSymbol;
 
         return CurrentTopCard;
+    }
+
+    public void SetVictory()
+    {
+        CurrentGameState = HotSeatGameState.Victory;
+
+        foreach(var player in HotseatPlayers) {
+            player.PlayerBoard.Disable();
+        }
+
+        InstantiateRetstartButton();
+        InstantiateSkull();
+    }
+
+    public void InstantiateRetstartButton()
+    {
+        var restartButton = GameObject.Instantiate(RestartButtonPrefab) as GameObject;
+        restartButton.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform);
+        restartButton.transform.localPosition = Vector3.zero;
+        restartButton.transform.localScale = new Vector3(1, 1, 1);
+    }
+
+    public void InstantiateSkull()
+    {
+        var skull = GameObject.Instantiate(SkullPrefab) as GameObject;
+        skull.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform);
+        skull.transform.position = CurrentPlayer.PlayerBoard.transform.position;
+        skull.transform.localScale = new Vector3(3, 3, 3);
+    }
+
+    public void ClearSkulls()
+    {
+        foreach(var skull in GameObject.FindObjectsOfType<DeathSkull>()) {
+            GameObject.Destroy(skull.gameObject);
+        }
     }
 }
