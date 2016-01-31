@@ -162,7 +162,9 @@ public class HotseatManager : Manager<HotseatManager>
                 CurrentSpell = spell;
             } else if(result == SpellResult.Winning) {
                 CurrentSpell = spell;
+				SoundScript.Instance.PlaySound(SoundScript.Instance.winspell);
             } else if(result == SpellResult.Losing) {
+				SoundScript.Instance.PlaySound(SoundScript.Instance.losespell);
                 TakeDamage();
                 CurrentSpell = null;
                 GameObject.Destroy(CurrentTopCard.gameObject);
@@ -193,6 +195,7 @@ public class HotseatManager : Manager<HotseatManager>
 
         InstantiateRetstartButton();
         InstantiateSkull();
+		SoundScript.Instance.PlaySound(SoundScript.Instance.evillaugh);
     }
 
     public void InstantiateRetstartButton()
@@ -208,7 +211,11 @@ public class HotseatManager : Manager<HotseatManager>
         var skull = GameObject.Instantiate(SkullPrefab) as GameObject;
         skull.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform);
         skull.transform.position = CurrentPlayer.PlayerBoard.transform.position;
-        skull.transform.localScale = new Vector3(3, 3, 3);
+		if (CurrentPlayerIndex == 1) {
+			skull.transform.localScale = new Vector3 (3, 3, 3);
+		} else {
+			skull.transform.localScale = new Vector3 (3, -3, 3);
+		}
     }
 
     public void ClearSkulls()
