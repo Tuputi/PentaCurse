@@ -31,7 +31,9 @@ public class SoundScript : Manager <SoundScript>{
 		audiosource.PlayOneShot(clip);
 	}
 
-	public void LetGo(){
-		selectsoundcount = 0;
+	public void LetGo()
+    {
+        audiosource.pitch = 1;
+        selectsoundcount = 0;
 	}
 }

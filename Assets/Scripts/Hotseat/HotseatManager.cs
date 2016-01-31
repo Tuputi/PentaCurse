@@ -113,6 +113,7 @@ public class HotseatManager : Manager<HotseatManager>
 
     public void ChangePlayerTurn()
     {
+        GameManager.Instance.ClearCurrentSpell();
         CurrentPlayer.PlayerBoard.Disable();
         RuneTouch.Instance.ClearRunes();
         CurrentTimerValue = TurnTimerValue;
@@ -134,6 +135,10 @@ public class HotseatManager : Manager<HotseatManager>
 
     public void CastSpell(Spell spell)
     {
+        if(spell == null) {
+            spell = SpellList.Instance.fallBack;
+        }
+
         InstantiateSpellCard(spell);
         if(CurrentSpell == null) {
             CurrentSpell = spell;

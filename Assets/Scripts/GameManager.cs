@@ -26,8 +26,6 @@ public class GameManager : Manager<GameManager>
     {
         if (currentSpell == null) {
             UpdateSpellDraw();
-        } else {
-            UpdateSwipe();
         }
     }
 
@@ -47,24 +45,11 @@ public class GameManager : Manager<GameManager>
         }
     }
 
-    public void UpdateSwipe()
-    {
-        if (TouchInput.swipeDir == TouchInput.SwipeDirection.sUp) {
-            ClearCurrentSpell();
-        } else if(TouchInput.swipeDir == TouchInput.SwipeDirection.sLeft || TouchInput.swipeDir == TouchInput.SwipeDirection.sRight) {
-            ClearCurrentSpell();
-        }
-    }
-
     public void ClearCurrentSpell()
     {
         SoundScript.Instance.LetGo();
-        SoundScript.Instance.PlaySound(currentSpell.SendSound);
-
-        //sorry for silvertejp
-        if (cloud.gameObject.activeSelf)
-        {
-            cloud.gameObject.SetActive(false);
+        if (currentSpell != null) {
+            SoundScript.Instance.PlaySound(currentSpell.SendSound);
         }
 
         HotseatManager.Instance.CastSpell(currentSpell);
@@ -74,7 +59,7 @@ public class GameManager : Manager<GameManager>
         state = GameState.draw;
         TouchInput.ActiveTouch = false;
         TouchInput.swipeDir = TouchInput.SwipeDirection.sNone;
-        HotseatManager.Instance.ChangePlayerTurn();
+        
     }
 
     public void ReadySpell(Spell spell)
@@ -82,14 +67,6 @@ public class GameManager : Manager<GameManager>
         currentSpell = spell;
         state = GameState.send;
 
-        if (currentSpell == SpellList.Instance.fallBack){
-            if (PlayerScript.LocalInstance != null)
-            {
-                var health = PlayerScript.LocalInstance.CurrentHealth - 10;
-                PlayerScript.LocalInstance.SetCurrentHealth(health);
-            }
-        } 
-
-        ClearCurrentSpell();
+        HotseatManager.Instance.ChangePlayerTurn();
     }
 }
