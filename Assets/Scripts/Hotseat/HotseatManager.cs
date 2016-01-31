@@ -175,6 +175,7 @@ public class HotseatManager : Manager<HotseatManager>
         var spellCard = GameObject.Instantiate(SpellCardPRefab, Vector3.zero, Quaternion.identity) as GameObject;
         spellCard.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform);
         spellCard.transform.position = CurrentPlayer.PlayerBoard.transform.position;
+        spellCard.transform.localScale = new Vector3(3, 3, 3);
         CurrentTopCard = spellCard.GetComponent<SpellCard>();
         CurrentTopCard.Init();
         CurrentTopCard.Image.sprite = spell.RuneSymbol;
@@ -199,7 +200,7 @@ public class HotseatManager : Manager<HotseatManager>
         var restartButton = GameObject.Instantiate(RestartButtonPrefab) as GameObject;
         restartButton.transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform);
         restartButton.transform.localPosition = Vector3.zero;
-        restartButton.transform.localScale = new Vector3(1, 1, 1);
+        restartButton.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
     }
 
     public void InstantiateSkull()
