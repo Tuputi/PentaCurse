@@ -154,7 +154,7 @@ public class HotseatManager : Manager<HotseatManager>
 
         } else {
 
-            var result = SpellUtilties.GetResult(CurrentSpell, spell);
+            var result = spell.GetResultForSpell(CurrentSpell);
 
             Debug.Log("Result = " + result);
             if(result == SpellResult.Equal) {

@@ -13,4 +13,17 @@ public class Spell : ScriptableObject{
 
     public bool AllowReversed;
     public bool CircularPattern;
+
+    public List<CounterSpellResult> Counters;
+
+    public SpellResult GetResultForSpell(Spell spell)
+    {
+        foreach(var counter in Counters) {
+            if(counter.Spell == spell) {
+                return counter.Result;
+            }
+        }
+
+        return SpellResult.Losing;
+    }
 }

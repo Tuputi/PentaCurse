@@ -4,6 +4,6 @@ using System.Collections;
 [System.Serializable]
 public class CounterSpellResult
 {
-    public string Spell;
+    public Spell Spell;
     public SpellResult Result;
 }
