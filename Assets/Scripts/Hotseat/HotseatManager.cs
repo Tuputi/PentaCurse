@@ -7,11 +7,6 @@ public class HotseatManager : Manager<HotseatManager>
     public GameObject RestartButtonPrefab;
     public GameObject SkullPrefab;
 
-
-    //clouds
-    public GameObject cloud;
-
-
     public float VictoryScore = 50;
     public float CountdownTimer = 5;
     public float SuccessfullSpellDamageIncrease = 5;
@@ -51,8 +46,10 @@ public class HotseatManager : Manager<HotseatManager>
     // Use this for initialization
     void Start ()
     {
-        //cloud = GameObject.Find("Cloud");
+<<<<<<< HEAD
         FallbackClouds(false);
+=======
+>>>>>>> 8e9c031d84c903ecd3e632c975d8c1db9f155b78
         HotseatPlayers = GameObject.FindObjectsOfType<HotseatPlayer>();
         ResetBoard();
 	}
@@ -161,9 +158,6 @@ public class HotseatManager : Manager<HotseatManager>
 
         } else {
 
-            //hide cloud
-            FallbackClouds(false);
-
             var result = spell.GetResultForSpell(CurrentSpell);
 
             Debug.Log("Result = " + result);
@@ -177,7 +171,7 @@ public class HotseatManager : Manager<HotseatManager>
 				SoundScript.Instance.PlaySound(SoundScript.Instance.losespell);
                 TakeDamage();
                 CurrentSpell = null;
-                GameObject.Destroy(CurrentTopCard.gameObject, 1);
+                GameObject.Destroy(CurrentTopCard.gameObject);
             }
         }
     }
@@ -192,24 +186,8 @@ public class HotseatManager : Manager<HotseatManager>
         CurrentTopCard.Init();
         CurrentTopCard.Image.sprite = spell.RuneSymbol;
 
-
-        Debug.Log(spell.SpellName);
-        if (spell.SpellName.Equals("Fallback"))
-        {
-            FallbackClouds(true);
-        }
-
-
         return CurrentTopCard;
     }
-
-    public void FallbackClouds(bool active)
-    {
-        cloud.SetActive(active);
-        Debug.Log("FallbackClouds set active");
-    }
-
-
 
     public void SetVictory()
     {
