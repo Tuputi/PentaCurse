@@ -7,6 +7,9 @@ public class HotseatManager : Manager<HotseatManager>
     public GameObject RestartButtonPrefab;
     public GameObject SkullPrefab;
 
+    //cloud
+    public GameObject cloud;
+
     public float VictoryScore = 50;
     public float CountdownTimer = 5;
     public float SuccessfullSpellDamageIncrease = 5;
@@ -183,6 +186,11 @@ public class HotseatManager : Manager<HotseatManager>
         CurrentTopCard.Init();
         CurrentTopCard.Image.sprite = spell.RuneSymbol;
 
+        if (spell.SpellName.Equals("Fallback"))
+        {
+            FallbackClouds(true);
+        }
+
         return CurrentTopCard;
     }
 
@@ -224,5 +232,10 @@ public class HotseatManager : Manager<HotseatManager>
         foreach(var skull in GameObject.FindObjectsOfType<DeathSkull>()) {
             GameObject.Destroy(skull.gameObject);
         }
+    }
+
+    public void FallbackClouds(bool active)
+    {
+        cloud.SetActive(active);
     }
 }
