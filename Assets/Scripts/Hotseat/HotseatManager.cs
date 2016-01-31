@@ -182,7 +182,7 @@ public class HotseatManager : Manager<HotseatManager>
             } else if(result == SpellResult.Losing) {
 				SoundScript.Instance.PlaySound(SoundScript.Instance.losespell);
                 TakeDamage();
-                CurrentTopCard.MoveTowardPlayer(Player1Pos.transform.position);
+                //CurrentTopCard.MoveTowardPlayer(Player1Pos.transform.position);
                 CurrentSpell = null;
                 GameObject.Destroy(CurrentTopCard.gameObject);
             }
