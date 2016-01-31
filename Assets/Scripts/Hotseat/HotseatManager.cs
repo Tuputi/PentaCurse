@@ -177,7 +177,7 @@ public class HotseatManager : Manager<HotseatManager>
 				SoundScript.Instance.PlaySound(SoundScript.Instance.losespell);
                 TakeDamage();
                 CurrentSpell = null;
-                GameObject.Destroy(CurrentTopCard.gameObject);
+                GameObject.Destroy(CurrentTopCard.gameObject, 1);
             }
         }
     }
