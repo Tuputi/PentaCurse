@@ -46,10 +46,7 @@ public class HotseatManager : Manager<HotseatManager>
     // Use this for initialization
     void Start ()
     {
-<<<<<<< HEAD
-        FallbackClouds(false);
-=======
->>>>>>> 8e9c031d84c903ecd3e632c975d8c1db9f155b78
+        //FallbackClouds(false);
         HotseatPlayers = GameObject.FindObjectsOfType<HotseatPlayer>();
         ResetBoard();
 	}
