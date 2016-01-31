@@ -32,6 +32,7 @@ public class SpellCard : MonoBehaviour {
 
     public void MoveTowardPlayer(Vector3 playerPosition)
     {
+        Debug.Log("Fly towards playerPostion");
         TargetPosition = playerPosition;
     }
 }

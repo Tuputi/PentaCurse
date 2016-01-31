@@ -11,6 +11,8 @@ public class HotseatManager : Manager<HotseatManager>
     public GameObject cloud;
     public GameObject damage1;
     public GameObject damage2;
+    public GameObject Player1Pos;
+    public GameObject Player2Pos;
 
     public float VictoryScore = 50;
     public float CountdownTimer = 5;
@@ -171,11 +173,11 @@ public class HotseatManager : Manager<HotseatManager>
                 CurrentSpell = spell;
             } else if(result == SpellResult.Winning) {
                 CurrentSpell = spell;
-               // CurrentTopCard.MoveTowardPlayer();
 				SoundScript.Instance.PlaySound(SoundScript.Instance.winspell);
             } else if(result == SpellResult.Losing) {
 				SoundScript.Instance.PlaySound(SoundScript.Instance.losespell);
                 TakeDamage();
+                CurrentTopCard.MoveTowardPlayer(Player1Pos.transform.position);
                 CurrentSpell = null;
                 GameObject.Destroy(CurrentTopCard.gameObject);
             }
