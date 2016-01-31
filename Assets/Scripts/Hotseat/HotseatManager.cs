@@ -51,7 +51,6 @@ public class HotseatManager : Manager<HotseatManager>
     // Use this for initialization
     void Start ()
     {
-        //cloud = GameObject.Find("Cloud");
         FallbackClouds(false);
         HotseatPlayers = GameObject.FindObjectsOfType<HotseatPlayer>();
         ResetBoard();
