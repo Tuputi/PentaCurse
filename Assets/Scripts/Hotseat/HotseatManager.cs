@@ -7,8 +7,10 @@ public class HotseatManager : Manager<HotseatManager>
     public GameObject RestartButtonPrefab;
     public GameObject SkullPrefab;
 
-    //cloud
+    //cloud + damage
     public GameObject cloud;
+    public GameObject damage1;
+    public GameObject damage2;
 
     public float VictoryScore = 50;
     public float CountdownTimer = 5;
@@ -237,5 +239,23 @@ public class HotseatManager : Manager<HotseatManager>
     public void FallbackClouds(bool active)
     {
         cloud.SetActive(active);
+    }
+
+    public void DamageBlood(bool active, int activePLayerIndex)
+    {
+        if (!active)
+        {
+            damage1.SetActive(false);
+            damage2.SetActive(false);
+        }
+
+        if (activePLayerIndex == 0)
+        {
+            damage1.SetActive(active);
+        }
+        else
+        {
+            damage2.SetActive(active);
+        }
     }
 }
