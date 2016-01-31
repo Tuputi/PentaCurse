@@ -39,7 +39,7 @@ public class GameManager : Manager<GameManager>
 
         if (SpellInitiated) {
             if (!TouchInput.ActiveTouch && RuneTouch.Instance.GetRunes().Count > 0) {
-                Spell spell = SpellList.Instance.CheckWhichSpell(RuneTouch.Instance.GetRunes());
+                Spell spell = SpellList.Instance.GetSpellFromPattern(RuneTouch.Instance.GetRunes());
                 RuneTouch.Instance.ClearRunes();
                 SpellInitiated = false;
                 ReadySpell(spell);
