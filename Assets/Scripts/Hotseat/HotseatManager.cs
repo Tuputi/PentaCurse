@@ -171,6 +171,7 @@ public class HotseatManager : Manager<HotseatManager>
                 CurrentSpell = spell;
             } else if(result == SpellResult.Winning) {
                 CurrentSpell = spell;
+               // CurrentTopCard.MoveTowardPlayer();
 				SoundScript.Instance.PlaySound(SoundScript.Instance.winspell);
             } else if(result == SpellResult.Losing) {
 				SoundScript.Instance.PlaySound(SoundScript.Instance.losespell);

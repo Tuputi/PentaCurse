@@ -29,4 +29,9 @@ public class SpellCard : MonoBehaviour {
             }
         }
 	}
+
+    public void MoveTowardPlayer(Vector3 playerPosition)
+    {
+        TargetPosition = playerPosition;
+    }
 }
