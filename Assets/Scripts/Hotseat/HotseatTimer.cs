@@ -19,7 +19,7 @@ public class HotseatTimer : MonoBehaviour {
          if (HotseatManager.Instance.CurrentGameState == HotSeatGameState.Countdown) {
             timerFactor = HotseatManager.Instance.CurrentTimerValue / HotseatManager.Instance.CountdownTimer;
         } else if (HotseatManager.Instance.CurrentGameState == HotSeatGameState.Playing) {
-            timerFactor = HotseatManager.Instance.CurrentTimerValue / HotseatManager.Instance.TurnTimerValue;
+            timerFactor = HotseatManager.Instance.CurrentTimerValue / HotseatManager.Instance.CurrentResetTimerValue;
         }
 
         Slider.value = timerFactor;

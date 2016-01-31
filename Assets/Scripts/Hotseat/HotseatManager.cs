@@ -16,6 +16,7 @@ public class HotseatManager : Manager<HotseatManager>
 
     public float VictoryScore = 50;
     public float CountdownTimer = 5;
+    public float TimeRemovalFactor = 0.95f;
     public float SuccessfullSpellDamageIncrease = 5;
     public float TurnTimerValue = 3;
     public HotseatPlayer[] HotseatPlayers;
@@ -23,6 +24,7 @@ public class HotseatManager : Manager<HotseatManager>
     public HotSeatGameState CurrentGameState;
     public int CurrentPlayerIndex;
     public float CurrentTimerValue;
+    public float CurrentResetTimerValue;
     public float CurrentDamagePool;
     public float CurrentVictoryValue;
 
@@ -105,6 +107,7 @@ public class HotseatManager : Manager<HotseatManager>
         CurrentTimerValue = CountdownTimer;
         CurrentVictoryValue = 0;
         CurrentDamagePool = 0;
+        CurrentResetTimerValue = TurnTimerValue;
     }
 
     public void SetCountdownPhase()
@@ -120,7 +123,7 @@ public class HotseatManager : Manager<HotseatManager>
         CurrentPlayerIndex = 0;
         CurrentPlayer.PlayerBoard.Enable();
         Debug.Log("Current Player index is " + CurrentPlayerIndex);
-        CurrentTimerValue = TurnTimerValue;
+        CurrentTimerValue = CurrentResetTimerValue;
         CurrentGameState = HotSeatGameState.Playing;
     }
 
@@ -129,7 +132,7 @@ public class HotseatManager : Manager<HotseatManager>
         GameManager.Instance.ClearCurrentSpell();
         CurrentPlayer.PlayerBoard.Disable();
         RuneTouch.Instance.ClearRunes();
-        CurrentTimerValue = TurnTimerValue;
+        CurrentTimerValue = CurrentResetTimerValue;
         ToggleCurrentPlayer();
         Debug.Log("Current Player index is " + CurrentPlayerIndex);
         
@@ -140,6 +143,8 @@ public class HotseatManager : Manager<HotseatManager>
 
     public void TakeDamage()
     {
+        CurrentResetTimerValue *= TimeRemovalFactor;
+
         if(CurrentPlayerIndex == 1) {
             CurrentVictoryValue -= SuccessfullSpellDamageIncrease;
             DamageBlood(true, 1);
