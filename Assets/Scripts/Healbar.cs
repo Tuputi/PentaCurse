@@ -30,5 +30,6 @@ public class Healbar : Manager<Healbar>
         {
             OpponentHealthbar.value += amount;
         }
+
     }
 }
