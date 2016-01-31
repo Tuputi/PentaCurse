@@ -14,6 +14,7 @@ public class HotseatManager : Manager<HotseatManager>
 
     public float VictoryScore = 50;
     public float CountdownTimer = 5;
+    public float TimeRemovalFactor = 0.95f;
     public float SuccessfullSpellDamageIncrease = 5;
     public float TurnTimerValue = 3;
     public HotseatPlayer[] HotseatPlayers;
@@ -140,7 +141,7 @@ public class HotseatManager : Manager<HotseatManager>
 
     public void TakeDamage()
     {
-        CurrentResetTimerValue *= 0.95f;
+        CurrentResetTimerValue *= TimeRemovalFactor;
 
         if(CurrentPlayerIndex == 1) {
             CurrentVictoryValue -= SuccessfullSpellDamageIncrease;
@@ -175,6 +176,7 @@ public class HotseatManager : Manager<HotseatManager>
                 CurrentSpell = spell;
             } else if(result == SpellResult.Winning) {
                 CurrentSpell = spell;
+               // CurrentTopCard.MoveTowardPlayer();
 				SoundScript.Instance.PlaySound(SoundScript.Instance.winspell);
             } else if(result == SpellResult.Losing) {
 				SoundScript.Instance.PlaySound(SoundScript.Instance.losespell);
