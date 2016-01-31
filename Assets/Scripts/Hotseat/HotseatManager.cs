@@ -52,6 +52,7 @@ public class HotseatManager : Manager<HotseatManager>
     void Start ()
     {
         //FallbackClouds(false);
+        DamageBlood(false, 1);
         HotseatPlayers = GameObject.FindObjectsOfType<HotseatPlayer>();
         ResetBoard();
 	}
@@ -139,8 +140,10 @@ public class HotseatManager : Manager<HotseatManager>
     {
         if(CurrentPlayerIndex == 1) {
             CurrentVictoryValue -= SuccessfullSpellDamageIncrease;
+            DamageBlood(true, 1);
         } else {
             CurrentVictoryValue += SuccessfullSpellDamageIncrease;
+            DamageBlood(true, 2);
         }
 
         if(Mathf.Abs(CurrentVictoryValue) == VictoryScore) {
@@ -249,7 +252,7 @@ public class HotseatManager : Manager<HotseatManager>
             damage2.SetActive(false);
         }
 
-        if (activePLayerIndex == 0)
+        if (activePLayerIndex == 1)
         {
             damage1.SetActive(active);
         }
