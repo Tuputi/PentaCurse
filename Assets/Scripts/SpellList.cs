@@ -40,12 +40,16 @@ public class SpellList : Manager<SpellList>
     {
         var normalCandidates = new List<Spell>();
         var CircularCandidates = new List<Spell>();
+        var reversedCircularCandidates = new List<Spell>();
 
         // Make a first sorting based on the length of the pattern
         foreach(var spell in spells) {
             if (spell.CircularPattern) {
                 if(spell.Runes.Count +1 == runes.Count) {
                     CircularCandidates.Add(spell);
+                    if (spell.AllowReversed) {
+                        reversedCircularCandidates.Add(spell);
+                    }
                 }
             } else {
                 if (spell.Runes.Count == runes.Count) {
@@ -57,11 +61,13 @@ public class SpellList : Manager<SpellList>
         var validExactSpells = FilterExactPatterns(runes, normalCandidates);
         var validRevereseSpells = FilterReversablePatterns(runes, normalCandidates);
         var validCirularSpells = FilterCircularPatterns(runes, CircularCandidates);
+        var validReversedCircularSpells = FilterReversedCircularPatterns(runes, reversedCircularCandidates);
 
         var totalList = new List<Spell>();
         totalList.AddRange(validExactSpells);
         totalList.AddRange(validRevereseSpells);
         totalList.AddRange(validCirularSpells);
+        totalList.AddRange(validReversedCircularSpells);
 
         var result = totalList.FirstOrDefault();
 
@@ -136,6 +142,14 @@ public class SpellList : Manager<SpellList>
         }
 
         return -1;
+    }
+
+    private List<Spell> FilterReversedCircularPatterns(List<RuneType> runes, List<Spell> candidates)
+    {
+        var reversedRuneList = new List<RuneType>(runes);
+        reversedRuneList.Reverse();
+
+        return FilterCircularPatterns(reversedRuneList, candidates);
     }
 
     public Spell CheckWhichSpell(List<RuneType> runes)
