@@ -178,6 +178,9 @@ public class HotseatManager : Manager<HotseatManager>
                 CurrentSpell = spell;
             } else if(result == SpellResult.Winning) {
                 CurrentSpell = spell;
+                //
+                WriteOutAvailableCounters(CurrentSpell);
+                //
 				SoundScript.Instance.PlaySound(SoundScript.Instance.winspell);
             } else if(result == SpellResult.Losing) {
 				SoundScript.Instance.PlaySound(SoundScript.Instance.losespell);
@@ -185,6 +188,18 @@ public class HotseatManager : Manager<HotseatManager>
                 //CurrentTopCard.MoveTowardPlayer(Player1Pos.transform.position);
                 CurrentSpell = null;
                 GameObject.Destroy(CurrentTopCard.gameObject);
+            }
+        }
+    }
+
+    public void WriteOutAvailableCounters(Spell spell)
+    {
+        Debug.Log(spell.SpellName + " can be countered by:");
+        foreach(CounterSpellResult csp in spell.Counters)
+        {
+            if (spell.GetResultForSpell(csp.Spell) == SpellResult.Losing)
+            {
+                Debug.Log(csp.Spell.SpellName);
             }
         }
     }
