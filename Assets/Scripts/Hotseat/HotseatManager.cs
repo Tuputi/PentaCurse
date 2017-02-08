@@ -104,10 +104,10 @@ public class HotseatManager : Manager<HotseatManager>
         }
 
         CurrentGameState = HotSeatGameState.Initial;
+        CurrentResetTimerValue = TurnTimerValue;
         CurrentTimerValue = CountdownTimer;
         CurrentVictoryValue = 0;
         CurrentDamagePool = 0;
-        CurrentResetTimerValue = TurnTimerValue;
     }
 
     public void SetCountdownPhase()
@@ -132,7 +132,13 @@ public class HotseatManager : Manager<HotseatManager>
         GameManager.Instance.ClearCurrentSpell();
         CurrentPlayer.PlayerBoard.Disable();
         RuneTouch.Instance.ClearRunes();
+
+        // Speed up the game
+        CurrentResetTimerValue *= TimeRemovalFactor;
+        Debug.Log(CurrentResetTimerValue);
+
         CurrentTimerValue = CurrentResetTimerValue;
+
         ToggleCurrentPlayer();
         Debug.Log("Current Player index is " + CurrentPlayerIndex);
         
@@ -143,9 +149,9 @@ public class HotseatManager : Manager<HotseatManager>
 
     public void TakeDamage()
     {
-        CurrentResetTimerValue *= TimeRemovalFactor;
+        CurrentResetTimerValue = TurnTimerValue;
 
-        if(CurrentPlayerIndex == 1) {
+        if (CurrentPlayerIndex == 1) {
             CurrentVictoryValue -= SuccessfullSpellDamageIncrease;
             DamageBlood(true, 1);
         } else {
